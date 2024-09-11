@@ -10,6 +10,8 @@ public class CarController : MonoBehaviour
     public float SteerAngle = 20;
     public float Traction = 0.01f;
 
+    private RotateWheels wheelScript;
+
     // Variables
     private Vector3 MoveForce;
 
@@ -29,10 +31,21 @@ public class CarController : MonoBehaviour
         MoveForce = Vector3.ClampMagnitude(MoveForce, MaxSpeed); // cap the MoveForce magnitude to MaxSpeed
 
         // Traction
-        Debug.DrawRay(transform.position, MoveForce.normalized * 3);
+        Debug.DrawRay(transform.position, MoveForce.normalized * 3, Color.red);
         Debug.DrawRay(transform.position, transform.forward * 3, Color.blue);
 
         // Using Lerp (linear interpolation) we avoid the drift continuing sideways and bring the move direction back to the forward direction and make it the new move direction
         MoveForce = Vector3.Lerp(MoveForce.normalized, transform.forward, Traction * Time.deltaTime) * MoveForce.magnitude;
+        
+        // Rotate and Tilt Wheels
+        GameObject Wheel = GameObject.FindGameObjectWithTag("wheel");
+        wheelScript = Wheel.GetComponent<RotateWheels>();
+        
+        if (wheelScript != null)
+        {
+            wheelScript.Rotate(Input.GetAxis("Vertical"));
+            //float Tilt = Vector3.Distance(MoveForce, transform.forward);
+            //wheelScript.Tilt(Tilt);
+        }
     }
 }

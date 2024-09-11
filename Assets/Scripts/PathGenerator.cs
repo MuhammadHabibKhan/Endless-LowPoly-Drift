@@ -9,21 +9,22 @@ public class PathGenerator : MonoBehaviour
 {
     public Transform car;                // Reference to the car's transform
     public List<GameObject> pathPrefabs;    // List of path segment prefabs
-    public int maxSegmentsOnScreen = 300;     // Max number of segments active at once
-    public float spawnDistanceAhead = 100f; // How far ahead segments should spawn
+    public int maxSegmentsOnScreen = 10;     // Max number of segments active at once
+    public float spawnDistanceAhead = 1f; // How far ahead segments should spawn
 
     private List<GameObject> activeSegments = new List<GameObject>(); // List of active path segments
     private Vector3 nextSpawnPoint = Vector3.zero; // Where to spawn the next segment
-    private float playerDistanceMoved = 0f;       // Keep track of player's movement
+    //private float playerDistanceMoved = 0f;       // Keep track of player's movement
 
     void Start()
     {
         Application.targetFrameRate = 60;
+        //nextSpawnPoint = car.position;
 
         // Initial path generation (start with a few segments)
         for (int i = 0; i < maxSegmentsOnScreen; i++)
         {
-            SpawnSegment();
+            //SpawnSegment();
         }
     }
 
@@ -43,14 +44,14 @@ public class PathGenerator : MonoBehaviour
         // Select a random segment prefab from the list
         GameObject segment = Instantiate(pathPrefabs[Random.Range(0, pathPrefabs.Count)], nextSpawnPoint, Quaternion.identity);
 
-        //Fetch the Road Segment Collider from the Prefab List
-        MeshRenderer pathSegmentCollider;
-        pathSegmentCollider = segment.GetComponent<MeshRenderer>();
-
         // Add the new segment to the active list
         activeSegments.Add(segment);
 
-        // Update the spawn point for the next segment
+        //Fetch the Road Segment Collider from the Prefab List
+        Collider pathSegmentCollider;
+        pathSegmentCollider = segment.GetComponent<Collider>();
+
+        //Update the spawn point for the next segment
 
         //Fetch the size of the Collider volume
         Vector3 colliderSize;
@@ -62,6 +63,19 @@ public class PathGenerator : MonoBehaviour
 
         // Update the next spawn point
         nextSpawnPoint = segment.transform.position + distanceToNextSegment;
+
+        // Update the next spawn point using the EndPoint of the current segment
+        //Transform endPoint = segment.transform.Find("EndPoint");
+
+        //if (endPoint != null)
+        //{
+        //    nextSpawnPoint = endPoint.position;
+        //    Debug.Log(nextSpawnPoint.z);
+        //}
+        //else
+        //{
+        //    Debug.LogError("EndPoint not found on segment prefab!");
+        //}
     }
 
     // Function to remove the oldest segment (when it is out of view)
