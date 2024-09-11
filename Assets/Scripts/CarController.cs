@@ -6,9 +6,9 @@ public class CarController : MonoBehaviour
 {
     public float MoveSpeed = 100;
     public float MaxSpeed = 18;
-    public float Drag = 0.999f;
-    public float SteerAngle = 30;
-    public float Traction = 0.001f;
+    public float Drag = 0.991f;
+    public float SteerAngle = 20;
+    public float Traction = 0.01f;
 
     // Variables
     private Vector3 MoveForce;

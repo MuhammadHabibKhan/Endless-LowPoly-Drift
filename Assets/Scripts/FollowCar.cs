@@ -9,7 +9,7 @@ public class FollowCar : MonoBehaviour
     // Update is called once per frame
     void Update()
     {
-        transform.position = car.transform.position + new Vector3(0, 1, -5);
+        transform.position = car.transform.position + new Vector3(0, 3, -10);
         //transform.rotate = car.transform.rotation;
     }
 }
