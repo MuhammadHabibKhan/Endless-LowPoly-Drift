@@ -7,7 +7,7 @@ public class SteerCar : MonoBehaviour
     private Vector3 MoveForce;
 
     Rigidbody m_Rigidbody;
-    public float m_Thrust = 120f;
+    public float force = 120f;
 
     void Start()
     {
@@ -16,12 +16,9 @@ public class SteerCar : MonoBehaviour
 
     void Update()
     {
-        //MoveForce += transform.right * 20f * Input.GetAxis("Horizontal") * Time.deltaTime;
-        //transform.localPosition += MoveForce * Time.deltaTime;
-
         float direction = Input.GetAxis("Horizontal");
 
-        if (direction < 0) m_Rigidbody.AddForce(transform.right * m_Thrust * -1);
-        if (direction > 0) m_Rigidbody.AddForce(transform.right * m_Thrust * 1);
+        if (direction < 0) m_Rigidbody.AddForce(transform.right * force * -1);
+        if (direction > 0) m_Rigidbody.AddForce(transform.right * force);
     }
 }

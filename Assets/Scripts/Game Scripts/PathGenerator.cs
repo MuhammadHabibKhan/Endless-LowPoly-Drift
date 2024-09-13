@@ -18,7 +18,7 @@ public class PathGenerator : MonoBehaviour
 
     void Start()
     {
-        Application.targetFrameRate = 60;
+        //Application.targetFrameRate = 60;
         //nextSpawnPoint = car.position;
 
         // Initial path generation (start with a few segments)
@@ -47,35 +47,35 @@ public class PathGenerator : MonoBehaviour
         // Add the new segment to the active list
         activeSegments.Add(segment);
 
-        //Fetch the Road Segment Collider from the Prefab List
-        Collider pathSegmentCollider;
-        pathSegmentCollider = segment.GetComponent<Collider>();
+        ////Fetch the Road Segment Collider from the Prefab List
+        //Collider pathSegmentCollider;
+        //pathSegmentCollider = segment.GetComponent<Collider>();
 
-        //Update the spawn point for the next segment
+        ////Update the spawn point for the next segment
 
-        //Fetch the size of the Collider volume
-        Vector3 colliderSize;
-        colliderSize = pathSegmentCollider.bounds.size;
+        ////Fetch the size of the Collider volume
+        //Vector3 colliderSize;
+        //colliderSize = pathSegmentCollider.bounds.size;
 
-        // Get distance from the z axis
-        Vector3 distanceToNextSegment;
-        distanceToNextSegment = new Vector3(0f, 0f, colliderSize.z);
+        //// Get distance from the z axis
+        //Vector3 distanceToNextSegment;
+        //distanceToNextSegment = new Vector3(0f, 0f, colliderSize.z);
 
-        // Update the next spawn point
-        nextSpawnPoint = segment.transform.position + distanceToNextSegment;
+        //// Update the next spawn point
+        //nextSpawnPoint = segment.transform.position + distanceToNextSegment;
 
-        // Update the next spawn point using the EndPoint of the current segment
-        //Transform endPoint = segment.transform.Find("EndPoint");
+        //Update the next spawn point using the EndPoint of the current segment
+        Transform endPoint = segment.transform.Find("EndPoint");
 
-        //if (endPoint != null)
-        //{
-        //    nextSpawnPoint = endPoint.position;
-        //    Debug.Log(nextSpawnPoint.z);
-        //}
-        //else
-        //{
-        //    Debug.LogError("EndPoint not found on segment prefab!");
-        //}
+        if (endPoint != null)
+        {
+            nextSpawnPoint = new Vector3 (0f, 0f, endPoint.position.z + endPoint.position.z);
+            //Debug.Log(nextSpawnPoint.z);
+        }
+        else
+        {
+            Debug.LogError("EndPoint not found on segment prefab!");
+        }
     }
 
     // Function to remove the oldest segment (when it is out of view)
