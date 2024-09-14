@@ -7,7 +7,7 @@ public class SteerCar : MonoBehaviour
     private Vector3 MoveForce;
 
     Rigidbody m_Rigidbody;
-    public float force = 120f;
+    float force = 120f;
 
     void Start()
     {

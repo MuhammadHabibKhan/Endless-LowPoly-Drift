@@ -1,41 +1,27 @@
 using System.Collections;
 using System.Collections.Generic;
+using System.Threading;
 using UnityEngine;
+using UnityEngine.Experimental.GlobalIllumination;
 
 public class CycleNeonLight : MonoBehaviour
 {
-    bool up = true;
-    bool down = false;
-    float G_VAL = 0.3f;
     public Light directionalLight;
+    
+    Color greenShade;
+    Color originalColor;
+    float lerpDuration = 2f; // time to complete one cycle
 
-    void changeColor()
+    private void Start()
     {
-        Color currentColor = directionalLight.color;
-
-        currentColor.g = (G_VAL / 255f);
-        currentColor.r = 228f/255f;
-        currentColor.b = 1f;
-
-        directionalLight.color = currentColor;
-
-        if (G_VAL <= 0.3f)
-        {
-            up = true;
-            down = false;
-        }
-        if (G_VAL >= 1f)
-        {
-            down = true;
-            up = false;
-        }
-
-        if (up) G_VAL += 0.1f;
-        else if (down) G_VAL -= 0.1f;
+        originalColor = directionalLight.color;
+        greenShade = new Color(directionalLight.color.r, 1f, directionalLight.color.b, directionalLight.color.a);
     }
 
     void Update()
     {
-        changeColor();
+        // ping pong oscillates value b/w 0 and 2nd param | 1st param is any increasing value 
+        float t = Mathf.PingPong(Time.time / lerpDuration, 1f);
+        directionalLight.color = Color.Lerp(greenShade, originalColor, t);
     }
 }

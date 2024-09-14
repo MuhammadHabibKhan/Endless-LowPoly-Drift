@@ -4,11 +4,11 @@ using UnityEngine;
 
 public class CarController : MonoBehaviour
 {
-    public float MoveSpeed = 100;
-    public float MaxSpeed = 12;
-    public float Drag = 0.991f;
-    public float SteerAngle = 20;
-    public float Traction = 0.01f;
+    public float MoveSpeed;
+    public float MaxSpeed;
+    public float Drag;
+    public float SteerAngle;
+    public float Traction;
 
     private RotateWheels wheelScript;
 
