@@ -9,11 +9,6 @@ public class PauseMenuManager : MonoBehaviour
         GameManager.instance.SetGameState(GameManager.GameState.Resume);
     }
 
-    public void OnPressSettings()
-    {
-        
-    }
-
     public void OnPressMainMenu()
     {
         GameManager.instance.SetGameState(GameManager.GameState.MainMenu);

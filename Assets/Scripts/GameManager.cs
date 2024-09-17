@@ -12,6 +12,7 @@ public class GameManager : MonoBehaviour
         Playing,
         Paused,
         Resume,
+        Settings,
         GameOver
     }
     public event Action<GameState> OnGameStateChanged; // event for when state changes
@@ -33,9 +34,12 @@ public class GameManager : MonoBehaviour
             instance = this;
             DontDestroyOnLoad(gameObject);  // Persist across scenes
         }
-        else
+        else if (instance != this)
         {
-            Destroy(gameObject);  // Destroy duplicate instances
+            //Instance is not the same as the one we have, destroy old one, and reset to newest one
+            Destroy(instance.gameObject);
+            instance = this;
+            DontDestroyOnLoad(gameObject);
         }
     }
 
@@ -67,9 +71,12 @@ public class GameManager : MonoBehaviour
                 score = 0;
                 Time.timeScale = 0;
                 break;
+
+            case GameState.Settings:
+                LoadLevel(2);
+                break;
         }
         OnGameStateChanged?.Invoke(newState);
-        Debug.Log(newState);
     }
 
     public void LoadLevel(int levelNo)

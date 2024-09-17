@@ -16,4 +16,18 @@ public class MainMenuManager : MonoBehaviour
     {
         highScore.text = GameManager.instance.HighScore.ToString();
     }
+
+    // For Android Back button exit 
+    private void Update()
+    {
+        if (Input.GetKeyDown(KeyCode.Escape)) 
+        { 
+            Application.Quit(); 
+        }
+    }
+
+    public void OnPressedSettings()
+    {
+        GameManager.instance.SetGameState(GameManager.GameState.Settings);
+    }
 }
