@@ -10,16 +10,15 @@ public class PauseButton : MonoBehaviour
 
     public void TogglePause()
     {
-        Debug.Log("pause pressed");
         Debug.Log(GameManager.instance.currentState);
 
-        if (GameManager.instance.currentState == GameState.Playing)
+        if (GameManager.instance.currentState == GameState.Playing || GameManager.instance.currentState == GameState.Resume)
         {
             GameManager.instance.SetGameState(GameState.Paused);
         }
         else if (GameManager.instance.currentState == GameState.Paused)
         {
-            GameManager.instance.SetGameState(GameState.Playing);
+            GameManager.instance.SetGameState(GameState.Resume);
         }
     }
 }

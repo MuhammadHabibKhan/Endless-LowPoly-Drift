@@ -11,6 +11,7 @@ public class GameManager : MonoBehaviour
         MainMenu,
         Playing,
         Paused,
+        Resume,
         GameOver
     }
     public event Action<GameState> OnGameStateChanged; // event for when state changes
@@ -18,7 +19,7 @@ public class GameManager : MonoBehaviour
     public GameState currentState;
     public float gameTime;
     public int cointCount;
-    public int HighScore {  get; private set; }
+    public int HighScore { get; private set; }
     public int score;
 
     private void Awake()
@@ -46,6 +47,7 @@ public class GameManager : MonoBehaviour
         {
             case GameState.MainMenu:
                 LoadLevel(0);
+                Time.timeScale = 1;
                 break;
 
             case GameState.Playing:
@@ -54,8 +56,11 @@ public class GameManager : MonoBehaviour
                 break;
 
             case GameState.Paused:
-                Debug.Log("pause");
                 Time.timeScale = 0; 
+                break;
+
+            case GameState.Resume:
+                Time.timeScale = 1;
                 break;
 
             case GameState.GameOver:
@@ -64,6 +69,7 @@ public class GameManager : MonoBehaviour
                 break;
         }
         OnGameStateChanged?.Invoke(newState);
+        Debug.Log(newState);
     }
 
     public void LoadLevel(int levelNo)

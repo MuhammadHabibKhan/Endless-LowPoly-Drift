@@ -5,14 +5,19 @@ using static GameManager;
 
 public class PauseMenu : MonoBehaviour
 {
-    private GameObject pauseMenuCanvas;
-
+    public GameObject pauseMenuCanvas;
     private void Awake()
     {
         // Reference to the Canvas GameObject
-        pauseMenuCanvas = this.gameObject;
+        pauseMenuCanvas = gameObject;
+        //DontDestroyOnLoad(pauseMenuCanvas);
         pauseMenuCanvas.SetActive(false);
         OnEnable();
+    }
+
+    private void Start()
+    {
+        pauseMenuCanvas = gameObject;    
     }
 
     private void OnEnable()
@@ -21,7 +26,7 @@ public class PauseMenu : MonoBehaviour
         GameManager.instance.OnGameStateChanged += HandleGameStateChanged;
     }
 
-    private void OnDisable()
+    private void OnDestroy()
     {
         // Unsubscribe to prevent memory leaks
         GameManager.instance.OnGameStateChanged -= HandleGameStateChanged;
