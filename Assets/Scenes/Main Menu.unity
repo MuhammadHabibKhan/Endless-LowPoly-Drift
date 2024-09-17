@@ -1222,6 +1222,7 @@ MonoBehaviour:
   sfxSource: {fileID: 394687719}
   musicSlider: {fileID: 1514073194}
   sfxSlider: {fileID: 854564913}
+  masterSlider: {fileID: 1825159969}
 --- !u!4 &394687718
 Transform:
   m_ObjectHideFlags: 0
@@ -4911,6 +4912,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   currentState: 0
+  prevState: 0
   gameTime: 0
   cointCount: 0
   score: 55
