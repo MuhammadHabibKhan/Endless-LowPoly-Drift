@@ -475,6 +475,7 @@ MonoBehaviour:
   car: {fileID: 505986875}
   pathPrefabs:
   - {fileID: 3059767298681398168, guid: a34469498081c6d4eb36aaf3b4d82959, type: 3}
+  - {fileID: 3059767298681398168, guid: 3c752e5706d2b8647b3834aab4054056, type: 3}
   maxSegmentsOnScreen: 5
   spawnDistanceAhead: 50
 --- !u!4 &395262487
@@ -1455,7 +1456,7 @@ AudioSource:
   m_PrefabInstance: {fileID: 0}
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 963194225}
-  m_Enabled: 1
+  m_Enabled: 0
   serializedVersion: 4
   OutputAudioMixerGroup: {fileID: 0}
   m_audioClip: {fileID: 8300000, guid: 3b52cdad860f91d4298103fa70708f91, type: 3}

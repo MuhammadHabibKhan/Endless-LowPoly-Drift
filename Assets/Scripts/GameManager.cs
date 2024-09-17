@@ -18,6 +18,7 @@ public class GameManager : MonoBehaviour
     public event Action<GameState> OnGameStateChanged; // event for when state changes
     public static GameManager instance;
     public GameState currentState;
+    public GameState prevState;
     public float gameTime;
     public int cointCount;
     public int HighScore { get; private set; }
@@ -45,6 +46,7 @@ public class GameManager : MonoBehaviour
 
     public void SetGameState(GameState newState)
     {
+        PlayerPrefs.SetString("prevState", currentState.ToString());
         currentState = newState;
 
         switch (currentState)
@@ -57,6 +59,8 @@ public class GameManager : MonoBehaviour
             case GameState.Playing:
                 LoadLevel(1);
                 Time.timeScale = 1;
+                AudioManager.instance.StopMusic();
+                AudioManager.instance.PlayMusic("background");
                 break;
 
             case GameState.Paused:
@@ -73,10 +77,10 @@ public class GameManager : MonoBehaviour
                 break;
 
             case GameState.Settings:
-                LoadLevel(2);
                 break;
         }
         OnGameStateChanged?.Invoke(newState);
+        Debug.Log(newState);
     }
 
     public void LoadLevel(int levelNo)

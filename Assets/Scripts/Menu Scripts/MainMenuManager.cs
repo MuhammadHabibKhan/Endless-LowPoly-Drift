@@ -1,6 +1,7 @@
 using System.Collections;
 using System.Collections.Generic;
 using TMPro;
+using Unity.VisualScripting;
 using UnityEngine;
 using UnityEngine.SceneManagement;
 
@@ -14,6 +15,10 @@ public class MainMenuManager : MonoBehaviour
 
     private void Start()
     {
+        if (!AudioManager.instance.musicSource.isPlaying)
+        {
+            AudioManager.instance.PlayMusic("menu");
+        }
         highScore.text = GameManager.instance.HighScore.ToString();
     }
 

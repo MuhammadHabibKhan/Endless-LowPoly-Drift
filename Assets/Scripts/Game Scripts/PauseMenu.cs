@@ -10,14 +10,8 @@ public class PauseMenu : MonoBehaviour
     {
         // Reference to the Canvas GameObject
         pauseMenuCanvas = gameObject;
-        //DontDestroyOnLoad(pauseMenuCanvas);
         pauseMenuCanvas.SetActive(false);
         OnEnable();
-    }
-
-    private void Start()
-    {
-        pauseMenuCanvas = gameObject;    
     }
 
     private void OnEnable()
