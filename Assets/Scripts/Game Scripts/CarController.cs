@@ -13,7 +13,7 @@ public class CarController : MonoBehaviour
     private RotateWheels wheelScript;
 
     // Variables
-    private Vector3 MoveForce;
+    public Vector3 MoveForce;
 
     // Update is called once per frame
     void Update()
