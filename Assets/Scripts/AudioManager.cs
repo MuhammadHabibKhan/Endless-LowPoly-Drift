@@ -40,6 +40,7 @@ public class AudioManager : MonoBehaviour
         // Adding Audio Clips using Resources.Load
         audioClips.Add("menu", Resources.Load<AudioClip>("main menu music"));
         audioClips.Add("background", Resources.Load<AudioClip>("lofi-relax-travel"));
+        audioClips.Add("game-over", Resources.Load<AudioClip>("game-over"));
     }
 
     private void Start()

@@ -74,6 +74,7 @@ public class GameManager : MonoBehaviour
             case GameState.GameOver:
                 score = 0;
                 Time.timeScale = 0;
+                AudioManager.instance.PlaySFX("game-over");
                 break;
 
             case GameState.Settings:
