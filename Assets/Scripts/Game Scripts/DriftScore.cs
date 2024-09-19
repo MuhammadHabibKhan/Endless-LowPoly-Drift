@@ -36,10 +36,11 @@ public class DriftScore : MonoBehaviour
         GetVector();
 
         float distanceVector = Vector3.Distance(forceNormalized, forwardVector);
+        Debug.Log(distanceVector);
 
         if (rb.velocity.magnitude > 0.00001f)
         {
-            if (distanceVector <= 0.05f)
+            if (distanceVector <= 0.05f || distanceVector == 2)
             {
                 driftResetTimer += Time.deltaTime;
 
