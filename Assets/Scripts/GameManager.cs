@@ -21,6 +21,7 @@ public class GameManager : MonoBehaviour
     public GameState currentState;
     public GameState prevState;
 
+    public float multiplier;
     public float gameTime;
     public int cointCount;
 
@@ -97,14 +98,13 @@ public class GameManager : MonoBehaviour
         }
     }
 
-    public void AddScore(float amount)
+    public void AddScore(float amount, float mul)
     {
-        score += amount;
-        //Debug.Log("score: " + score + "high: " + highScore);
+        multiplier = mul;
+        score += (amount * multiplier);
 
         if (score > PlayerPrefs.GetFloat("highScore", 0f))
         {
-            //Debug.Log("score: " + score + "high: " + highScore);
             PlayerPrefs.SetFloat("highScore", score);
         }
         PlayerPrefs.SetFloat("currentScore", score);

@@ -45,7 +45,6 @@ public class DriftScore : MonoBehaviour
 
                 if (driftResetTimer >= driftResetThreshold)
                 {
-                    //Debug.Log("reset");
                     driftResetTimer = 0;
                     timeMultiplier = 1f;
                 }
@@ -53,13 +52,11 @@ public class DriftScore : MonoBehaviour
             else
             {
                 timeMultiplier += Time.deltaTime;
-                //Debug.Log("time xplier: " + timeMultiplier);
-                GameManager.instance.AddScore(0.1f * timeMultiplier);
+                GameManager.instance.AddScore(0.001f, timeMultiplier);
             }
         }
         else
         {
-            //Debug.Log("Stationary: " + rb.velocity.magnitude);
             timeMultiplier = 1f;
             driftResetTimer += Time.deltaTime;
         }
