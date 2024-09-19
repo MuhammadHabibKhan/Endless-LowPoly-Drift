@@ -7,7 +7,9 @@ using UnityEngine.SceneManagement;
 
 public class MainMenuManager : MonoBehaviour
 {
-    public TextMeshProUGUI highScore;
+    [SerializeField] private TextMeshProUGUI highScore;
+    private int highScoreInt;
+
     public void PlayGame()
     {
         GameManager.instance.SetGameState(GameManager.GameState.Playing);
@@ -19,7 +21,7 @@ public class MainMenuManager : MonoBehaviour
         {
             AudioManager.instance.PlayMusic("menu");
         }
-        highScore.text = GameManager.instance.HighScore.ToString();
+        displayHighScore();
     }
 
     // For Android Back button exit 
@@ -34,5 +36,11 @@ public class MainMenuManager : MonoBehaviour
     public void OnPressedSettings()
     {
         GameManager.instance.SetGameState(GameManager.GameState.Settings);
+    }
+
+    void displayHighScore()
+    {
+        highScoreInt = (int) PlayerPrefs.GetFloat("highScore", 0);
+        highScore.text = highScoreInt.ToString();
     }
 }

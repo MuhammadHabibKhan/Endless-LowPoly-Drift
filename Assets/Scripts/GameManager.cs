@@ -17,18 +17,18 @@ public class GameManager : MonoBehaviour
     }
     public event Action<GameState> OnGameStateChanged; // event for when state changes
     public static GameManager instance;
+
     public GameState currentState;
     public GameState prevState;
+
     public float gameTime;
     public int cointCount;
-    public int HighScore { get; private set; }
-    public int score;
+
+    //private float highScore;
+    private float score = 0;
 
     private void Awake()
     {
-        // Get high score stored in player prefs
-        HighScore = PlayerPrefs.GetInt("High Score", 0);
-
         // Ensure that only one instance of the GameManager exists
         if (instance == null)
         {
@@ -42,11 +42,11 @@ public class GameManager : MonoBehaviour
             instance = this;
             DontDestroyOnLoad(gameObject);
         }
+        //highScore = PlayerPrefs.GetFloat("highScore", 0f);
     }
 
     public void SetGameState(GameState newState)
     {
-        PlayerPrefs.SetString("prevState", currentState.ToString());
         currentState = newState;
 
         switch (currentState)
@@ -97,12 +97,23 @@ public class GameManager : MonoBehaviour
         }
     }
 
-    public void AddScore(int amount)
+    public void AddScore(float amount)
     {
         score += amount;
-        if (score > HighScore) HighScore = score;
-        PlayerPrefs.SetInt("High Score", HighScore);
+        //Debug.Log("score: " + score + "high: " + highScore);
+
+        if (score > PlayerPrefs.GetFloat("highScore", 0f))
+        {
+            //Debug.Log("score: " + score + "high: " + highScore);
+            PlayerPrefs.SetFloat("highScore", score);
+        }
+        PlayerPrefs.SetFloat("currentScore", score);
         PlayerPrefs.Save();
+    }
+
+    public void RemoveScore()
+    {
+        PlayerPrefs.SetFloat("currentScore", 0f);
     }
 
 }

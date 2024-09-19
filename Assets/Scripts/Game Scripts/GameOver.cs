@@ -24,6 +24,9 @@ public class GameOver : MonoBehaviour
     {
         // Unsubscribe to prevent memory leaks
         GameManager.instance.OnGameStateChanged -= HandleGameStateChanged;
+
+        // Reset current score to zero when GameOver screen is destroyed
+        GameManager.instance.RemoveScore();
     }
 
     // Respond to the event when the game state changes

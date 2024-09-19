@@ -7,11 +7,11 @@ public class DriftScore : MonoBehaviour
     private CarController controller;
     private Vector3 forceNormalized;
     private Vector3 forwardVector;
-    private float score = 0;
     private Rigidbody rb;
 
     float driftResetTimer = 0f;  
     float driftResetThreshold = 1.5f;
+    float timeMultiplier = 1f;
 
     void Start()
     {
@@ -34,21 +34,34 @@ public class DriftScore : MonoBehaviour
     void IsDrift()
     {
         GetVector();
+
         float distanceVector = Vector3.Distance(forceNormalized, forwardVector);
 
-        if (distanceVector > 0.01f && rb.velocity.magnitude > 0.01f)
+        if (rb.velocity.magnitude > 0.00001f)
         {
-            score += 0.01f;
-            //PlayerPrefs.SetInt("score"
-        }
-        else if (distanceVector <= 0.01f && rb.velocity.magnitude > 0.01f)
-        {
-            driftResetTimer += Time.deltaTime;
-
-            if (driftResetTimer >= driftResetThreshold)
+            if (distanceVector <= 0.05f)
             {
-                
+                driftResetTimer += Time.deltaTime;
+
+                if (driftResetTimer >= driftResetThreshold)
+                {
+                    //Debug.Log("reset");
+                    driftResetTimer = 0;
+                    timeMultiplier = 1f;
+                }
             }
+            else
+            {
+                timeMultiplier += Time.deltaTime;
+                //Debug.Log("time xplier: " + timeMultiplier);
+                GameManager.instance.AddScore(0.1f * timeMultiplier);
+            }
+        }
+        else
+        {
+            //Debug.Log("Stationary: " + rb.velocity.magnitude);
+            timeMultiplier = 1f;
+            driftResetTimer += Time.deltaTime;
         }
     }
 
