@@ -61,5 +61,4 @@ public class DriftScore : MonoBehaviour
             driftResetTimer += Time.deltaTime;
         }
     }
-
 }

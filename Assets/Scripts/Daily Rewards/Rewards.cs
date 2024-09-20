@@ -1,18 +1,17 @@
 using System.Collections;
 using System.Collections.Generic;
-using TMPro;
 using UnityEngine;
 using static GameManager;
 
-public class GameOver : MonoBehaviour
+public class Rewards : MonoBehaviour
 {
-    public GameObject gameOverCanvas;
+    public GameObject rewardCanvas;
 
     private void Awake()
     {
         // Reference to the Canvas GameObject
-        gameOverCanvas = gameObject;
-        gameOverCanvas.SetActive(false);
+        //rewardCanvas = gameObject;
+        rewardCanvas.SetActive(false);
         OnEnable();
     }
 
@@ -26,22 +25,18 @@ public class GameOver : MonoBehaviour
     {
         // Unsubscribe to prevent memory leaks
         GameManager.instance.OnGameStateChanged -= HandleGameStateChanged;
-
-        // Reset current score to zero when GameOver screen is destroyed
-        GameManager.instance.RemoveScore();
     }
 
     // Respond to the event when the game state changes
     private void HandleGameStateChanged(GameState newState)
     {
-        if (newState == GameState.GameOver)
+        if (newState == GameState.Rewards)
         {
-            gameOverCanvas.SetActive(true);
+            rewardCanvas.SetActive(true);
         }
         else
         {
-            gameOverCanvas.SetActive(false);
+            rewardCanvas.SetActive(false);
         }
     }
-
 }

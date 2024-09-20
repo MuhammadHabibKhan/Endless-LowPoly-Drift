@@ -13,6 +13,7 @@ public class GameManager : MonoBehaviour
         Paused,
         Resume,
         Settings,
+        Rewards,
         GameOver
     }
     public event Action<GameState> OnGameStateChanged; // event for when state changes
@@ -79,6 +80,9 @@ public class GameManager : MonoBehaviour
                 break;
 
             case GameState.Settings:
+                break;
+
+            case GameState.Rewards:
                 break;
         }
         OnGameStateChanged?.Invoke(newState);
