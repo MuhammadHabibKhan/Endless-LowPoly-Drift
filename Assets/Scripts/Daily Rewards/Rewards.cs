@@ -5,20 +5,23 @@ using static GameManager;
 
 public class Rewards : MonoBehaviour
 {
-    public GameObject rewardCanvas;
+    private GameObject rewardCanvas;
 
-    private void Awake()
+    private void Start()
     {
         // Reference to the Canvas GameObject
-        //rewardCanvas = gameObject;
+        rewardCanvas = gameObject;
         rewardCanvas.SetActive(false);
-        OnEnable();
+        if (GameManager.instance != null) GameManager.instance.OnGameStateChanged += HandleGameStateChanged;
     }
 
     private void OnEnable()
     {
-        // Subscribe to the GameManager's state change event
-        GameManager.instance.OnGameStateChanged += HandleGameStateChanged;
+        if (GameManager.instance != null)
+        {
+            // Subscribe to the GameManager's state change event
+            GameManager.instance.OnGameStateChanged += HandleGameStateChanged;
+        }
     }
 
     private void OnDestroy()
@@ -33,6 +36,7 @@ public class Rewards : MonoBehaviour
         if (newState == GameState.Rewards)
         {
             rewardCanvas.SetActive(true);
+
         }
         else
         {

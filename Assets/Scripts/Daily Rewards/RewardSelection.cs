@@ -4,10 +4,6 @@ using System.Collections.Generic;
 using System.Globalization;
 using UnityEngine;
 using UnityEngine.UI;
-//using UnityEngine.UIElements;
-
-/* NOTE: CODE WRITTEN FOR TESTING | For live implementation uncomment line 132 and 135 in CalculateNextDeadline() and comment line 133
- * Use the same logic for enabling button in ReEnableCollectButton instead of the +15 seconds */
 
 public class RewardSelection : MonoBehaviour
 {
@@ -43,11 +39,11 @@ public class RewardSelection : MonoBehaviour
 
     public void RunRewardSystem()
     {
+        GameManager.instance.SetGameState(GameManager.GameState.Rewards);
+
         getServerTime();
         ResetProgress();
         ReEnableCollectButton();
-
-        GameManager.instance.SetGameState(GameManager.GameState.Rewards);
     }
 
     void getServerTime()
@@ -56,9 +52,14 @@ public class RewardSelection : MonoBehaviour
 
         if (serverScript != null)
         {
+            StartCoroutine(serverScript.GetTimeZoneFromAPI());
             string dateInString = serverScript.response.datetime;
-            //Debug.Log(dateInString);
+            Debug.Log(dateInString);
             if (serverScript.initialReq) { currentDateTime = DateTime.ParseExact(dateInString, "yyyy'-'MM'-'dd'T'HH':'mm':'ss.ffffffK", CultureInfo.InvariantCulture); }
+        }
+        else
+        {
+            Debug.Log("Server Time script missing");
         }
     }
 
@@ -104,7 +105,7 @@ public class RewardSelection : MonoBehaviour
         }
         else
         {
-            Debug.Log("Wait for Initial Time Fetch");
+            Debug.Log("Wait for Initial Time Fetch " + currentDateTime);
         }
     }
 
