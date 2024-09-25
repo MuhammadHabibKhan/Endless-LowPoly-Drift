@@ -5,21 +5,24 @@ using UnityEngine;
 using UnityEngine.Advertisements;
 
 public class DisplayInterstitial : MonoBehaviour, IUnityAdsShowListener, IUnityAdsLoadListener
-{
+{    
     public string androidADUnitID;
     public string iOSADUnitID;
-
     private string adUnitID;
 
     private bool adsLoaded = false;
 
     void Awake()
     {
-#if UNITY_IOS
-        adUnitID = iOSADUnitID;
-#elif UNITY_ANDROID
-        adUnitID = androidADUnitID;
-#endif
+        #if UNITY_IOS
+                adUnitID = iOSADUnitID;
+        #elif UNITY_ANDROID
+                adUnitID = androidADUnitID;
+        #endif
+    }
+
+    void Start()
+    {
         LoadAD();
     }
 
@@ -32,16 +35,18 @@ public class DisplayInterstitial : MonoBehaviour, IUnityAdsShowListener, IUnityA
     {
         if (adsLoaded)
         {
-            Debug.Log("show");
             Advertisement.Show(adUnitID, this);
+        }
+        else
+        {
+            Debug.Log("Ad not loaded");
         }
     }
 
     public void OnUnityAdsAdLoaded(string placementId)
     {
-        //ShowAD(); // Show Ad when loaded
-        Debug.Log("Ad Loaded");
         adsLoaded = true;
+        Debug.Log("Ad Loaded");
     }
 
     public void OnUnityAdsFailedToLoad(string placementId, UnityAdsLoadError error, string message)
@@ -57,11 +62,12 @@ public class DisplayInterstitial : MonoBehaviour, IUnityAdsShowListener, IUnityA
 
     public void OnUnityAdsShowComplete(string placementId, UnityAdsShowCompletionState showCompletionState)
     {
-        LoadAD(); // load another ad as soon as one is shown
+        //LoadAD(); // load another ad as soon as one is shown
     }
 
     public void OnUnityAdsShowFailure(string placementId, UnityAdsShowError error, string message)
     {
+        adsLoaded = false;
     }
 
     public void OnUnityAdsShowStart(string placementId)

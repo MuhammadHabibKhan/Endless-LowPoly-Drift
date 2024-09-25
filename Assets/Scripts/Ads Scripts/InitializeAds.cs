@@ -6,8 +6,6 @@ using UnityEngine.SceneManagement;
 
 public class InitializeAds : MonoBehaviour, IUnityAdsInitializationListener
 {
-    public static InitializeAds instance;
-
     public string androidGameID;
     public string iOSGameID;
     string gameID;
@@ -16,34 +14,24 @@ public class InitializeAds : MonoBehaviour, IUnityAdsInitializationListener
 
     void Awake()
     {
-        if (instance == null)
-        {
-            instance = this;
-            DontDestroyOnLoad(gameObject);
-            InitAds();
-        }
-        else
-        {
-            Destroy(gameObject);
-        }
+        InitAds();
     }
 
-    void InitAds()
+    public void InitAds()
     {
         // Using preprocessor directives to only load ads specific to the platform and block the rest before compile time
-#if UNITY_IOS
-    gameID = iOSGameID;
-#elif UNITY_ANDROID
-    gameID = androidGameID;
-#elif UNITY_EDITOR
-    gameID = androidGameID; // test
-#endif
+        #if UNITY_IOS
+            gameID = iOSGameID;
+        #elif UNITY_ANDROID
+            gameID = androidGameID;
+        #elif UNITY_EDITOR
+            gameID = androidGameID; // test
+        #endif
 
         if (!Advertisement.isInitialized && Advertisement.isSupported)
         {
             Advertisement.Initialize(gameID, isTesting, this);
         }
-
     }
 
     public void OnInitializationComplete()
