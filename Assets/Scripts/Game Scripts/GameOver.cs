@@ -7,6 +7,7 @@ using static GameManager;
 public class GameOver : MonoBehaviour
 {
     public GameObject gameOverCanvas;
+    public GameObject AdsManager;
 
     private void Awake()
     {
@@ -37,6 +38,7 @@ public class GameOver : MonoBehaviour
         if (newState == GameState.GameOver && gameOverCanvas != null)
         {
             gameOverCanvas.SetActive(true);
+            AdsManager.GetComponent<DisplayInterstitial>().ShowAD();
         }
         else if (gameOverCanvas != null)
         {
