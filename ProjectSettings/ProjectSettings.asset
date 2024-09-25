@@ -796,7 +796,13 @@ PlayerSettings:
   XboxOneOverrideIdentityPublisher: 
   vrEditorSettings: {}
   cloudServicesEnabled:
+    Build: 0
+    Collab: 0
+    Game Performance: 0
+    Purchasing: 0
+    UDP: 0
     UNet: 1
+    Unity Ads: 0
   luminIcon:
     m_Name: 
     m_ModelFolderPath: 
@@ -811,11 +817,11 @@ PlayerSettings:
   apiCompatibilityLevel: 6
   activeInputHandler: 0
   windowsGamepadBackendHint: 0
-  cloudProjectId: 9b235182-ba31-43bf-b936-85c49dad0046
+  cloudProjectId: 1ea74886-d62a-4fd9-9aa7-96de8781adc7
   framebufferDepthMemorylessMode: 0
   qualitySettingsNames: []
-  projectName: Endless LowPoly Drift 2024-09-11_01-36-02
-  organizationId: muhammad2002khan
+  projectName: Endless LowPoly Drift (1)
+  organizationId: unity_ac2f06e1cb0514096fae
   cloudEnabled: 0
   legacyClampBlendShapeWeights: 0
   playerDataPath: 

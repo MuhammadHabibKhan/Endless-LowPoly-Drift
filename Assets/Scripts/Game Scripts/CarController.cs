@@ -44,8 +44,7 @@ public class CarController : MonoBehaviour
         if (wheelScript != null)
         {
             wheelScript.Rotate(Input.GetAxis("Vertical"));
-            //float Tilt = Vector3.Distance(MoveForce, transform.forward);
-            //wheelScript.Tilt(Tilt);
+            wheelScript.TiltWheels(steerInput);
         }
     }
 }

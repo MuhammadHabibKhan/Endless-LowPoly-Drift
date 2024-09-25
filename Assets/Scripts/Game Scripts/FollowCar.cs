@@ -16,7 +16,7 @@ public class FollowCar : MonoBehaviour
         transform.position = desiredPosition;
 
         Quaternion desiredrotation = car.rotation * Quaternion.Euler(rotationOffset);
-        //Quaternion smoothedrotation = Quaternion.Lerp(transform.rotation, desiredrotation, smoothSpeed);
         transform.rotation = desiredrotation;
+        //Quaternion smoothedrotation = Quaternion.Lerp(transform.rotation, desiredrotation, smoothSpeed);
     }
 }

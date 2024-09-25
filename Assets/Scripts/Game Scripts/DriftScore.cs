@@ -37,7 +37,7 @@ public class DriftScore : MonoBehaviour
 
         float distanceVector = Vector3.Distance(forceNormalized, forwardVector);
 
-        if (rb.velocity.magnitude > 0.00001f)
+        if (rb.velocity.magnitude > 0.0001f)
         {
             if (distanceVector <= 0.05f || distanceVector == 2)
             {
