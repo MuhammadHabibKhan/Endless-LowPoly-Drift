@@ -25,7 +25,7 @@ public class GameManager : MonoBehaviour
 
     public float multiplier;
     public float gameTime;
-    public int cointCount;
+    public int coinCount;
 
     //private float highScore;
     private float score = 0;
@@ -107,11 +107,15 @@ public class GameManager : MonoBehaviour
         multiplier = mul;
         score += (amount * multiplier);
 
+        coinCount = PlayerPrefs.GetInt("CoinCount", 0);
+        coinCount += (int) (score / 10);
+
         if (score > PlayerPrefs.GetFloat("highScore", 0f))
         {
             PlayerPrefs.SetFloat("highScore", score);
         }
         PlayerPrefs.SetFloat("currentScore", score);
+        PlayerPrefs.SetInt("CoinCount", coinCount);
         PlayerPrefs.Save();
     }
 

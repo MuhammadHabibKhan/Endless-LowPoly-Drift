@@ -8,7 +8,9 @@ using UnityEngine.SceneManagement;
 public class MainMenuManager : MonoBehaviour
 {
     [SerializeField] private TextMeshProUGUI highScore;
+    [SerializeField] private TextMeshProUGUI coinCountText;
     private int highScoreInt;
+    private int coinCount;
 
     public void PlayGame()
     {
@@ -18,7 +20,8 @@ public class MainMenuManager : MonoBehaviour
     private void Start()
     {
         AudioManager.instance.PlayMusic("menu");
-        displayHighScore();
+        DisplayHighScore();
+        DisplayCoinCount();
     }
 
     // For Android Back button exit 
@@ -35,9 +38,15 @@ public class MainMenuManager : MonoBehaviour
         GameManager.instance.SetGameState(GameManager.GameState.Settings);
     }
 
-    void displayHighScore()
+    void DisplayHighScore()
     {
         highScoreInt = (int) PlayerPrefs.GetFloat("highScore", 0);
         highScore.text = highScoreInt.ToString();
+    }
+
+    void DisplayCoinCount()
+    {
+        coinCount = PlayerPrefs.GetInt("CoinCount", 0);
+        coinCountText.text = coinCount.ToString();
     }
 }
