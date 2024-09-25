@@ -10,11 +10,6 @@ public class ServerTime : MonoBehaviour
     public TimeZoneApiResponse response;
     [NonSerialized] public bool initialReq = false;
 
-    //void Start()
-    //{
-    //    InvokeRepeating("GetServerTimePeriodically", 0f, 15f);
-    //}
-
     IEnumerator GetTimeZoneFromAPI()
     {
         // 'Using' statement to get rid of request once done
@@ -36,21 +31,9 @@ public class ServerTime : MonoBehaviour
         }
     }
 
-    // Either use Coroutines here or InvokeRepeating() Method | Or simply use logic acc. to the application to fetch when clicked on the rewards button
-    void GetServerTimePeriodically()
-    {
-        if (gameObject.activeSelf)
-        {
-            StartCoroutine(GetTimeZoneFromAPI());
-        }
-    }
-
     public void GetServerTime()
     {
-        //if (gameObject.activeSelf)
-        //{
-            StartCoroutine(GetTimeZoneFromAPI());
-        //}
+        StartCoroutine(GetTimeZoneFromAPI());
     }
 
 }

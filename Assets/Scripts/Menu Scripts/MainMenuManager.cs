@@ -17,10 +17,7 @@ public class MainMenuManager : MonoBehaviour
 
     private void Start()
     {
-        if (!AudioManager.instance.musicSource.isPlaying)
-        {
-            AudioManager.instance.PlayMusic("menu");
-        }
+        AudioManager.instance.PlayMusic("menu");
         displayHighScore();
     }
 
@@ -28,7 +25,7 @@ public class MainMenuManager : MonoBehaviour
     private void Update()
     {
         if (Input.GetKeyDown(KeyCode.Escape)) 
-        { 
+        {
             Application.Quit(); 
         }
     }

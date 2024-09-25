@@ -25,11 +25,11 @@ public class SettingsMenu : MonoBehaviour
     // Respond to the event when the game state changes
     private void HandleGameStateChanged(GameState newState)
     {
-        if (newState == GameState.Settings)
+        if (newState == GameState.Settings && settingsCanvas != null)
         {
             settingsCanvas.SetActive(true);
         }
-        else
+        else if (settingsCanvas != null)
         {
             settingsCanvas.SetActive(false);
         }
@@ -37,6 +37,6 @@ public class SettingsMenu : MonoBehaviour
 
     public void OnPressedClose()
     {
-        GameManager.instance.SetGameState(GameManager.GameState.MainMenu);
+        GameManager.instance.SetGameState(GameManager.GameState.ReturnMainMenu);
     }
 }

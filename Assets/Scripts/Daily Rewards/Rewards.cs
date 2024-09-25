@@ -33,12 +33,13 @@ public class Rewards : MonoBehaviour
     // Respond to the event when the game state changes
     private void HandleGameStateChanged(GameState newState)
     {
-        if (newState == GameState.Rewards)
+        if (newState == GameState.Rewards && rewardCanvas != null)
         {
+            RewardSelection.instance.RunRewardSystem();
             rewardCanvas.SetActive(true);
 
         }
-        else
+        else if (rewardCanvas != null)
         {
             rewardCanvas.SetActive(false);
         }

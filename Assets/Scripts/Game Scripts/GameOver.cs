@@ -34,11 +34,11 @@ public class GameOver : MonoBehaviour
     // Respond to the event when the game state changes
     private void HandleGameStateChanged(GameState newState)
     {
-        if (newState == GameState.GameOver)
+        if (newState == GameState.GameOver && gameOverCanvas != null)
         {
             gameOverCanvas.SetActive(true);
         }
-        else
+        else if (gameOverCanvas != null)
         {
             gameOverCanvas.SetActive(false);
         }

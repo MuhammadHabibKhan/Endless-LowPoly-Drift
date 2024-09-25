@@ -9,6 +9,7 @@ public class GameManager : MonoBehaviour
     public enum GameState
     {
         MainMenu,
+        ReturnMainMenu,
         Playing,
         Paused,
         Resume,
@@ -39,12 +40,8 @@ public class GameManager : MonoBehaviour
         }
         else if (instance != this)
         {
-            //Instance is not the same as the one we have, destroy old one, and reset to newest one
-            Destroy(instance.gameObject);
-            instance = this;
-            DontDestroyOnLoad(gameObject);
+            Destroy(gameObject);
         }
-        //highScore = PlayerPrefs.GetFloat("highScore", 0f);
     }
 
     public void SetGameState(GameState newState)
@@ -56,6 +53,9 @@ public class GameManager : MonoBehaviour
             case GameState.MainMenu:
                 LoadLevel(0);
                 Time.timeScale = 1;
+                break;
+
+            case GameState.ReturnMainMenu:
                 break;
 
             case GameState.Playing:
@@ -86,7 +86,7 @@ public class GameManager : MonoBehaviour
                 break;
         }
         OnGameStateChanged?.Invoke(newState);
-        Debug.Log(newState);
+        //Debug.Log(newState);
     }
 
     public void LoadLevel(int levelNo)

@@ -2,45 +2,80 @@ using System;
 using System.Collections;
 using System.Collections.Generic;
 using System.Globalization;
+using Unity.VisualScripting;
 using UnityEngine;
+using UnityEngine.SceneManagement;
 using UnityEngine.UI;
 
 public class RewardSelection : MonoBehaviour
 {
+    public static RewardSelection instance;
+    public bool buttonState = true;
+
+    private void Awake()
+    {
+        if (instance == null)
+        {
+            instance = this;
+            DontDestroyOnLoad(gameObject);
+            SceneManager.sceneLoaded += OnSceneLoaded;
+        }
+        else
+        {
+            Destroy(gameObject);
+        }
+    }
+
+    private void OnDestroy()
+    {
+        if (instance == this)
+        {
+            SceneManager.sceneLoaded -= OnSceneLoaded; // Unsubscribe when destroyed
+        }
+    }
+
+    private void OnSceneLoaded(Scene scene, LoadSceneMode mode)
+    {
+        Button[] ButtonList = FindObjectsOfType<Button>();
+
+        for (int i = 0; i < ButtonList.Length; i++)
+        {
+            Button button = ButtonList[i];
+            if (button.name == "CollectButton")
+            {
+                collectButton = button;
+                collectButton.onClick.AddListener(CollectReward);
+                collectButton.interactable = buttonState;
+                //if (buttonState) { collectButton.interactable = true; } else if (!buttonState) { collectButton.interactable = false; }
+            }
+        }
+    }
+
     // array to store reward amount for each day
     int[] RewardAmount = { 5, 10, 20, 50, 50, 75, 100 };
 
-    private System.DateTime currentDateTime; // holds current datetime | updated every frame
-    private System.DateTime nextCollectionDeadline; // assigned when reward collected 
-    private System.DateTime lastCollectionDateTime; // to reset progress 
 
-    private int currentDay = 0; // initializing current day as day 0
-    private int currentReward;
+    [SerializeField] public System.DateTime currentDateTime; // holds current datetime | updated every frame
+    [SerializeField] public System.DateTime nextCollectionDeadline; // assigned when reward collected 
+    [SerializeField] public System.DateTime lastCollectionDateTime; // to reset progress 
+
+    public int currentDay = 0; // initializing current day as day 0
+    public int currentReward;
     private System.TimeSpan endOfDay;
 
     private ServerTime serverScript;
     [SerializeField] private Button collectButton; // to hold the reference of collect reward button
     System.DateTime Dummy = DateTime.Parse("1/1/0001 12:00:00 AM"); // since currentDateTime is non-nullable, we test against this dummy value that it holds to wait until first value is fetched
 
-    Color newColor;
-
     void Start()
     {
+        Debug.Log("start called");
         getServerTime();
         nextCollectionDeadline = currentDateTime;
     }
 
-    //void Update()
-    //{
-    //    getServerTime();
-    //    ResetProgress();
-    //    ReEnableCollectButton();
-    //}
-
     public void RunRewardSystem()
     {
-        GameManager.instance.SetGameState(GameManager.GameState.Rewards);
-
         getServerTime();
         ResetProgress();
         ReEnableCollectButton();
@@ -52,7 +87,7 @@ public class RewardSelection : MonoBehaviour
 
         if (serverScript != null)
         {
-            StartCoroutine(serverScript.GetTimeZoneFromAPI());
+            serverScript.GetServerTime();
             string dateInString = serverScript.response.datetime;
             Debug.Log(dateInString);
             if (serverScript.initialReq) { currentDateTime = DateTime.ParseExact(dateInString, "yyyy'-'MM'-'dd'T'HH':'mm':'ss.ffffffK", CultureInfo.InvariantCulture); }
@@ -63,7 +98,7 @@ public class RewardSelection : MonoBehaviour
         }
     }
 
-    // function to collect reward on button press | Time measured from previous reward collection 
+    //function to collect reward on button press | Time measured from previous reward collection
     public void CollectReward()
     {
         if (currentDateTime != Dummy)
@@ -79,6 +114,7 @@ public class RewardSelection : MonoBehaviour
                         lastCollectionDateTime = currentDateTime;
                         currentReward = RewardAmount[currentDay];
                         collectButton.interactable = false;
+                        buttonState = false;
                         CalculateNextDeadline();
 
                         currentDay = (currentDay + 1) % 7;
@@ -91,6 +127,7 @@ public class RewardSelection : MonoBehaviour
                     currentReward = RewardAmount[0]; // if Day 0, next collection deadline does not exist hence directly assign 0th element
                     currentDay = (currentDay + 1) % 7;
                     collectButton.interactable = false;
+                    buttonState = false;
                     lastCollectionDateTime = currentDateTime;
                     CalculateNextDeadline();
 
@@ -119,6 +156,7 @@ public class RewardSelection : MonoBehaviour
             if (endOfDay.TotalSeconds <= 0) // if past 12am at night
             {
                 collectButton.interactable = true;
+                buttonState = true;
             }
         }
     }
@@ -141,6 +179,7 @@ public class RewardSelection : MonoBehaviour
             if (timeLeft.TotalSeconds <= 0)
             {
                 collectButton.interactable = true;
+                buttonState = true;
                 currentDay = 0;
             }
         }
