@@ -3,7 +3,7 @@ using System.Collections.Generic;
 using UnityEngine;
 using static GameManager;
 
-public class SettingsMenu : MonoBehaviour
+public class SettingsMenus : MonoBehaviour
 {
     private GameObject settingsCanvas;
 
