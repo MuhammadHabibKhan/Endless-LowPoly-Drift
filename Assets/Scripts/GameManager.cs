@@ -105,10 +105,11 @@ public class GameManager : MonoBehaviour
     public void AddScore(float amount, float mul)
     {
         multiplier = mul;
+        float amountAdded = score - (multiplier * amount);
         score += (amount * multiplier);
 
         coinCount = PlayerPrefs.GetInt("CoinCount", 0);
-        coinCount += (int) (score / 10);
+        coinCount += (int) (amountAdded / 10);
 
         if (score > PlayerPrefs.GetFloat("highScore", 0f))
         {
