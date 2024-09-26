@@ -25,7 +25,9 @@ public class GameManager : MonoBehaviour
 
     public float multiplier;
     public float gameTime;
+
     public int coinCount;
+    private int totalCoinCount;
 
     //private float highScore;
     private float score = 0;
@@ -74,6 +76,7 @@ public class GameManager : MonoBehaviour
                 break;
 
             case GameState.GameOver:
+                AddCoins();
                 score = 0;
                 Time.timeScale = 0;
                 AudioManager.instance.PlaySFX("game-over");
@@ -105,18 +108,23 @@ public class GameManager : MonoBehaviour
     public void AddScore(float amount, float mul)
     {
         multiplier = mul;
-        float amountAdded = score - (multiplier * amount);
         score += (amount * multiplier);
-
-        coinCount = PlayerPrefs.GetInt("CoinCount", 0);
-        coinCount += (int) (amountAdded / 10);
 
         if (score > PlayerPrefs.GetFloat("highScore", 0f))
         {
             PlayerPrefs.SetFloat("highScore", score);
         }
         PlayerPrefs.SetFloat("currentScore", score);
-        PlayerPrefs.SetInt("CoinCount", coinCount);
+        PlayerPrefs.Save();
+    }
+
+    public void AddCoins()
+    {
+        Debug.Log("coins added: " + score);
+        coinCount = (int) (score / 10);
+        totalCoinCount = PlayerPrefs.GetInt("TotalCoinCount", 0);
+        totalCoinCount += coinCount;
+        PlayerPrefs.SetInt("TotalCoinCount", totalCoinCount);
         PlayerPrefs.Save();
     }
 
