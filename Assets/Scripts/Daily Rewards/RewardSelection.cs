@@ -69,7 +69,6 @@ public class RewardSelection : MonoBehaviour
 
     void Start()
     {
-        Debug.Log("start called");
         getServerTime();
         nextCollectionDeadline = currentDateTime;
     }

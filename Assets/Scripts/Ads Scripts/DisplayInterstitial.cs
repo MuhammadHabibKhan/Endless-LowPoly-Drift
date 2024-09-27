@@ -35,6 +35,7 @@ public class DisplayInterstitial : MonoBehaviour, IUnityAdsShowListener, IUnityA
     {
         if (adsLoaded)
         {
+            AudioManager.instance.PauseMusic();
             Advertisement.Show(adUnitID, this);
         }
         else
@@ -46,7 +47,7 @@ public class DisplayInterstitial : MonoBehaviour, IUnityAdsShowListener, IUnityA
     public void OnUnityAdsAdLoaded(string placementId)
     {
         adsLoaded = true;
-        Debug.Log("Ad Loaded");
+        //Debug.Log("Ad Loaded");
     }
 
     public void OnUnityAdsFailedToLoad(string placementId, UnityAdsLoadError error, string message)
@@ -62,7 +63,7 @@ public class DisplayInterstitial : MonoBehaviour, IUnityAdsShowListener, IUnityA
 
     public void OnUnityAdsShowComplete(string placementId, UnityAdsShowCompletionState showCompletionState)
     {
-        //LoadAD(); // load another ad as soon as one is shown
+        AudioManager.instance.ResumeMusic();
     }
 
     public void OnUnityAdsShowFailure(string placementId, UnityAdsShowError error, string message)

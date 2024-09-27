@@ -120,7 +120,6 @@ public class GameManager : MonoBehaviour
 
     public void AddCoins()
     {
-        Debug.Log("coins added: " + score);
         coinCount = (int) (score / 10);
         totalCoinCount = PlayerPrefs.GetInt("TotalCoinCount", 0);
         totalCoinCount += coinCount;
