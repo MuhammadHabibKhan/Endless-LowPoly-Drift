@@ -10,7 +10,7 @@ using UnityEngine.UI;
 public class RewardSelection : MonoBehaviour
 {
     public static RewardSelection instance;
-    public bool buttonState = true;
+    //public bool buttonState = true;
 
     private void Awake()
     {
@@ -45,7 +45,7 @@ public class RewardSelection : MonoBehaviour
             {
                 collectButton = button;
                 collectButton.onClick.AddListener(CollectReward);
-                collectButton.interactable = buttonState;
+                //collectButton.interactable = buttonState;
                 //if (buttonState) { collectButton.interactable = true; } else if (!buttonState) { collectButton.interactable = false; }
             }
         }
@@ -87,9 +87,10 @@ public class RewardSelection : MonoBehaviour
         if (serverScript != null)
         {
             serverScript.GetServerTime();
-            string dateInString = serverScript.response.datetime;
-            Debug.Log(dateInString);
-            if (serverScript.initialReq) { currentDateTime = DateTime.ParseExact(dateInString, "yyyy'-'MM'-'dd'T'HH':'mm':'ss.ffffffK", CultureInfo.InvariantCulture); }
+
+            //string dateInString = serverScript.response.datetime;
+            //currentDateTime = DateTime.ParseExact(dateInString, "yyyy'-'MM'-'dd'T'HH':'mm':'ss.ffffffK", CultureInfo.InvariantCulture);
+            //if (serverScript.initialReq) { currentDateTime = DateTime.ParseExact(dateInString, "yyyy'-'MM'-'dd'T'HH':'mm':'ss.ffffffK", CultureInfo.InvariantCulture); }
         }
         else
         {
@@ -113,7 +114,6 @@ public class RewardSelection : MonoBehaviour
                         lastCollectionDateTime = currentDateTime;
                         currentReward = RewardAmount[currentDay];
                         collectButton.interactable = false;
-                        buttonState = false;
                         CalculateNextDeadline();
 
                         currentDay = (currentDay + 1) % 7;
@@ -126,7 +126,6 @@ public class RewardSelection : MonoBehaviour
                     currentReward = RewardAmount[0]; // if Day 0, next collection deadline does not exist hence directly assign 0th element
                     currentDay = (currentDay + 1) % 7;
                     collectButton.interactable = false;
-                    buttonState = false;
                     lastCollectionDateTime = currentDateTime;
                     CalculateNextDeadline();
 
@@ -149,23 +148,24 @@ public class RewardSelection : MonoBehaviour
     {
         if (currentDay != 0 || currentReward == 100) // if reward collected for the first time, last collection time does not exist | need to check if end of week since day resets to 0 here as well
         {
-            //endOfDay = lastCollectionDateTime.Date.Add(new System.TimeSpan(lastCollectionDateTime.Hour, lastCollectionDateTime.Minute, lastCollectionDateTime.Second + 5)) - currentDateTime;
-            endOfDay = lastCollectionDateTime.Date.Add(new System.TimeSpan(24, 0, 0)) - currentDateTime;
+            endOfDay = lastCollectionDateTime.Date.Add(new System.TimeSpan(lastCollectionDateTime.Hour, lastCollectionDateTime.Minute, lastCollectionDateTime.Second + 5)) - currentDateTime;
+            //endOfDay = lastCollectionDateTime.Date.Add(new System.TimeSpan(24, 0, 0)) - currentDateTime;
 
             if (endOfDay.TotalSeconds <= 0) // if past 12am at night
             {
                 collectButton.interactable = true;
-                buttonState = true;
             }
         }
     }
 
     void CalculateNextDeadline()
     {
-        System.TimeSpan timeTillEndOfDay = currentDateTime.Date.Add(new System.TimeSpan(24, 0, 0)) - currentDateTime;
-        //System.TimeSpan timeTillEndOfDay = currentDateTime.Date.Add(new System.TimeSpan(currentDateTime.Hour, currentDateTime.Minute, currentDateTime.Second + 15)) - currentDateTime;
+        //System.TimeSpan timeTillEndOfDay = currentDateTime.Date.Add(new System.TimeSpan(24, 0, 0)) - currentDateTime;
+
+        System.TimeSpan timeTillEndOfDay = currentDateTime.Date.Add(new System.TimeSpan(currentDateTime.Hour, currentDateTime.Minute, currentDateTime.Second + 15)) - currentDateTime;
+
         nextCollectionDeadline = currentDateTime + timeTillEndOfDay;
-        nextCollectionDeadline = nextCollectionDeadline.AddDays(1);
+        //nextCollectionDeadline = nextCollectionDeadline.AddDays(1);
     }
 
     // Reset the cumulative reward progress if reward not collected before deadline
@@ -178,7 +178,6 @@ public class RewardSelection : MonoBehaviour
             if (timeLeft.TotalSeconds <= 0)
             {
                 collectButton.interactable = true;
-                buttonState = true;
                 currentDay = 0;
             }
         }

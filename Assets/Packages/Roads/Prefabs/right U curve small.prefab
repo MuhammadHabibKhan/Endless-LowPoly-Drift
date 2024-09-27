@@ -379,7 +379,7 @@ GameObject:
   - component: {fileID: 4719682688363636131}
   - component: {fileID: 4715953315902559586}
   - component: {fileID: 9114689585090256728}
-  m_Layer: 0
+  m_Layer: 6
   m_Name: Sidewalk
   m_TagString: Untagged
   m_Icon: {fileID: 0}

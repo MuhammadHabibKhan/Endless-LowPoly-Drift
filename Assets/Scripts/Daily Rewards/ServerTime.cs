@@ -1,6 +1,7 @@
 using System;
 using System.Collections;
 using System.Collections.Generic;
+using System.Globalization;
 using UnityEngine;
 using UnityEngine.Networking;
 
@@ -8,13 +9,16 @@ public class ServerTime : MonoBehaviour
 {
     private string ipApiUrl = "http://worldtimeapi.org/api/ip";
     public TimeZoneApiResponse response;
-    [NonSerialized] public bool initialReq = false;
+    //[NonSerialized] public bool initialReq = false;
+    public bool responseFlag = false;
 
     IEnumerator GetTimeZoneFromAPI()
     {
         // 'Using' statement to get rid of request once done
         using (UnityWebRequest webRequest = UnityWebRequest.Get(ipApiUrl))
         {
+            responseFlag = true;
+
             // Send the request and wait for a response | IEnumerator + Yield is similar to async await functionality acheived as a workaround
             yield return webRequest.SendWebRequest();
 
@@ -26,7 +30,9 @@ public class ServerTime : MonoBehaviour
             {
                 // Parse the JSON response to get the time zone
                 response = JsonUtility.FromJson<TimeZoneApiResponse>(webRequest.downloadHandler.text);
-                initialReq = true;
+                RewardSelection.instance.currentDateTime = DateTime.ParseExact(response.datetime, "yyyy'-'MM'-'dd'T'HH':'mm':'ss.ffffffK", CultureInfo.InvariantCulture);
+                responseFlag = true;
+                //initialReq = true;
             }
         }
     }

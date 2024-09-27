@@ -38,6 +38,7 @@ public class GameOver : MonoBehaviour
         if (newState == GameState.GameOver && gameOverCanvas != null)
         {
             gameOverCanvas.SetActive(true);
+            PlayerPrefs.Save();
             AdsManager.GetComponent<DisplayInterstitial>().ShowAD();
         }
         else if (gameOverCanvas != null)

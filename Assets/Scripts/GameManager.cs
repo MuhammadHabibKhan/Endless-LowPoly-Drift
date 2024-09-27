@@ -115,7 +115,6 @@ public class GameManager : MonoBehaviour
             PlayerPrefs.SetFloat("highScore", score);
         }
         PlayerPrefs.SetFloat("currentScore", score);
-        PlayerPrefs.Save();
     }
 
     public void AddCoins()
@@ -124,7 +123,6 @@ public class GameManager : MonoBehaviour
         totalCoinCount = PlayerPrefs.GetInt("TotalCoinCount", 0);
         totalCoinCount += coinCount;
         PlayerPrefs.SetInt("TotalCoinCount", totalCoinCount);
-        PlayerPrefs.Save();
     }
 
     public void RemoveScore()

@@ -38,7 +38,7 @@ RenderSettings:
   m_ReflectionIntensity: 1
   m_CustomReflection: {fileID: 0}
   m_Sun: {fileID: 705507994}
-  m_IndirectSpecularColor: {r: 0.25736898, g: 0.19956712, b: 0.31139788, a: 1}
+  m_IndirectSpecularColor: {r: 0.07907055, g: 0.06131476, b: 0.095669836, a: 1}
   m_UseRadianceAmbientProbe: 0
 --- !u!157 &3
 LightmapSettings:
@@ -1414,20 +1414,44 @@ PrefabInstance:
     m_TransformParent: {fileID: 0}
     m_Modifications:
     - target: {fileID: 1107770978438132, guid: dea8dd1cda91a7c45bf518a9b4250511, type: 3}
+      propertyPath: m_Layer
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 1107770978438132, guid: dea8dd1cda91a7c45bf518a9b4250511, type: 3}
       propertyPath: m_TagString
       value: wheel
+      objectReference: {fileID: 0}
+    - target: {fileID: 1440164327326132, guid: dea8dd1cda91a7c45bf518a9b4250511, type: 3}
+      propertyPath: m_Layer
+      value: 0
       objectReference: {fileID: 0}
     - target: {fileID: 1440164327326132, guid: dea8dd1cda91a7c45bf518a9b4250511, type: 3}
       propertyPath: m_TagString
       value: wheel
       objectReference: {fileID: 0}
     - target: {fileID: 1450225184013696, guid: dea8dd1cda91a7c45bf518a9b4250511, type: 3}
+      propertyPath: m_Layer
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 1450225184013696, guid: dea8dd1cda91a7c45bf518a9b4250511, type: 3}
       propertyPath: m_TagString
       value: wheel
+      objectReference: {fileID: 0}
+    - target: {fileID: 1559070572674776, guid: dea8dd1cda91a7c45bf518a9b4250511, type: 3}
+      propertyPath: m_Layer
+      value: 0
       objectReference: {fileID: 0}
     - target: {fileID: 1762712976003096, guid: dea8dd1cda91a7c45bf518a9b4250511, type: 3}
       propertyPath: m_Name
       value: vz05_ white
+      objectReference: {fileID: 0}
+    - target: {fileID: 1762712976003096, guid: dea8dd1cda91a7c45bf518a9b4250511, type: 3}
+      propertyPath: m_Layer
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 1949773404484944, guid: dea8dd1cda91a7c45bf518a9b4250511, type: 3}
+      propertyPath: m_Layer
+      value: 0
       objectReference: {fileID: 0}
     - target: {fileID: 1949773404484944, guid: dea8dd1cda91a7c45bf518a9b4250511, type: 3}
       propertyPath: m_TagString
