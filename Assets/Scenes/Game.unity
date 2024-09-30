@@ -38,7 +38,7 @@ RenderSettings:
   m_ReflectionIntensity: 1
   m_CustomReflection: {fileID: 0}
   m_Sun: {fileID: 705507994}
-  m_IndirectSpecularColor: {r: 0.07907055, g: 0.06131476, b: 0.095669836, a: 1}
+  m_IndirectSpecularColor: {r: 0.13754345, g: 0.10665579, b: 0.1664184, a: 1}
   m_UseRadianceAmbientProbe: 0
 --- !u!157 &3
 LightmapSettings:
@@ -1251,7 +1251,6 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   car: {fileID: 505986875}
   pathPrefabs:
-  - {fileID: 3059767298681398168, guid: a34469498081c6d4eb36aaf3b4d82959, type: 3}
   - {fileID: 3059767298681398168, guid: 3c752e5706d2b8647b3834aab4054056, type: 3}
   - {fileID: 3059767298681398168, guid: 1cc9f0a54a8d71a4a9aba294d47b7f9b, type: 3}
   maxSegmentsOnScreen: 5
