@@ -35,7 +35,6 @@ public class Rewards : MonoBehaviour
     {
         if (newState == GameState.Rewards && rewardCanvas != null)
         {
-            RewardSelection.instance.RunRewardSystem();
             rewardCanvas.SetActive(true);
 
         }

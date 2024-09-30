@@ -66,6 +66,7 @@ public class AudioManager : MonoBehaviour
         audioClips.Add("menu", Resources.Load<AudioClip>("main menu music"));
         audioClips.Add("background", Resources.Load<AudioClip>("freaky-trap"));
         audioClips.Add("game-over", Resources.Load<AudioClip>("game-over-new"));
+        audioClips.Add("reward", Resources.Load<AudioClip>("coin-reward"));
     }
 
     private void Start()
