@@ -2,7 +2,8 @@ using System.Collections;
 using System.Collections.Generic;
 using System.Drawing;
 using UnityEngine;
-using static UnityEditor.PlayerSettings;
+using UnityEditor;
+//using static UnityEditor.PlayerSettings;
 
 
 public class PathGenerator : MonoBehaviour

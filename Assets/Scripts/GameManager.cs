@@ -46,6 +46,11 @@ public class GameManager : MonoBehaviour
         }
     }
 
+    private void Start()
+    {
+        Screen.orientation = ScreenOrientation.LandscapeLeft;
+    }
+
     public void SetGameState(GameState newState)
     {
         currentState = newState;

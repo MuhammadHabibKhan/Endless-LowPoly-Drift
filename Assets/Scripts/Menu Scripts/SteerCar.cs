@@ -12,11 +12,13 @@ public class SteerCar : MonoBehaviour
     void Start()
     {
         m_Rigidbody = GetComponent<Rigidbody>();
+        Input.gyro.enabled = true;
     }
 
     void Update()
     {
-        float direction = Input.GetAxis("Horizontal");
+        //float direction = Input.GetAxis("Horizontal");
+        float direction = Input.gyro.rotationRateUnbiased.y;
 
         if (direction < 0) m_Rigidbody.AddForce(transform.right * force * -1);
         if (direction > 0) m_Rigidbody.AddForce(transform.right * force);
