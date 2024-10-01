@@ -9,26 +9,31 @@ public class GameManager : MonoBehaviour
     public enum GameState
     {
         MainMenu,
+        ReturnMainMenu,
         Playing,
         Paused,
         Resume,
         Settings,
+        Rewards,
         GameOver
     }
     public event Action<GameState> OnGameStateChanged; // event for when state changes
     public static GameManager instance;
+
     public GameState currentState;
     public GameState prevState;
+
+    public float multiplier;
     public float gameTime;
-    public int cointCount;
-    public int HighScore { get; private set; }
-    public int score;
+
+    public int coinCount;
+    private int totalCoinCount;
+
+    //private float highScore;
+    private float score = 0;
 
     private void Awake()
     {
-        // Get high score stored in player prefs
-        HighScore = PlayerPrefs.GetInt("High Score", 0);
-
         // Ensure that only one instance of the GameManager exists
         if (instance == null)
         {
@@ -37,16 +42,12 @@ public class GameManager : MonoBehaviour
         }
         else if (instance != this)
         {
-            //Instance is not the same as the one we have, destroy old one, and reset to newest one
-            Destroy(instance.gameObject);
-            instance = this;
-            DontDestroyOnLoad(gameObject);
+            Destroy(gameObject);
         }
     }
 
     public void SetGameState(GameState newState)
     {
-        PlayerPrefs.SetString("prevState", currentState.ToString());
         currentState = newState;
 
         switch (currentState)
@@ -54,6 +55,9 @@ public class GameManager : MonoBehaviour
             case GameState.MainMenu:
                 LoadLevel(0);
                 Time.timeScale = 1;
+                break;
+
+            case GameState.ReturnMainMenu:
                 break;
 
             case GameState.Playing:
@@ -72,15 +76,20 @@ public class GameManager : MonoBehaviour
                 break;
 
             case GameState.GameOver:
+                AddCoins();
                 score = 0;
                 Time.timeScale = 0;
+                AudioManager.instance.PlaySFX("game-over");
                 break;
 
             case GameState.Settings:
                 break;
+
+            case GameState.Rewards:
+                break;
         }
         OnGameStateChanged?.Invoke(newState);
-        Debug.Log(newState);
+        //Debug.Log(newState);
     }
 
     public void LoadLevel(int levelNo)
@@ -96,12 +105,29 @@ public class GameManager : MonoBehaviour
         }
     }
 
-    public void AddScore(int amount)
+    public void AddScore(float amount, float mul)
     {
-        score += amount;
-        if (score > HighScore) HighScore = score;
-        PlayerPrefs.SetInt("High Score", HighScore);
-        PlayerPrefs.Save();
+        multiplier = mul;
+        score += (amount * multiplier);
+
+        if (score > PlayerPrefs.GetFloat("highScore", 0f))
+        {
+            PlayerPrefs.SetFloat("highScore", score);
+        }
+        PlayerPrefs.SetFloat("currentScore", score);
+    }
+
+    public void AddCoins()
+    {
+        coinCount = (int) (score / 10);
+        totalCoinCount = PlayerPrefs.GetInt("TotalCoinCount", 0);
+        totalCoinCount += coinCount;
+        PlayerPrefs.SetInt("TotalCoinCount", totalCoinCount);
+    }
+
+    public void RemoveScore()
+    {
+        PlayerPrefs.SetFloat("currentScore", 0f);
     }
 
 }

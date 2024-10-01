@@ -7,7 +7,11 @@ using UnityEngine.SceneManagement;
 
 public class MainMenuManager : MonoBehaviour
 {
-    public TextMeshProUGUI highScore;
+    [SerializeField] private TextMeshProUGUI highScore;
+    [SerializeField] private TextMeshProUGUI coinCountText;
+    private int highScoreInt;
+    private int coinCount;
+
     public void PlayGame()
     {
         GameManager.instance.SetGameState(GameManager.GameState.Playing);
@@ -15,18 +19,16 @@ public class MainMenuManager : MonoBehaviour
 
     private void Start()
     {
-        if (!AudioManager.instance.musicSource.isPlaying)
-        {
-            AudioManager.instance.PlayMusic("menu");
-        }
-        highScore.text = GameManager.instance.HighScore.ToString();
+        AudioManager.instance.PlayMusic("menu");
+        DisplayHighScore();
+        DisplayCoinCount();
     }
 
     // For Android Back button exit 
     private void Update()
     {
         if (Input.GetKeyDown(KeyCode.Escape)) 
-        { 
+        {
             Application.Quit(); 
         }
     }
@@ -34,5 +36,17 @@ public class MainMenuManager : MonoBehaviour
     public void OnPressedSettings()
     {
         GameManager.instance.SetGameState(GameManager.GameState.Settings);
+    }
+
+    void DisplayHighScore()
+    {
+        highScoreInt = (int) PlayerPrefs.GetFloat("highScore", 0);
+        highScore.text = highScoreInt.ToString();
+    }
+
+    void DisplayCoinCount()
+    {
+        coinCount = PlayerPrefs.GetInt("TotalCoinCount", 0);
+        coinCountText.text = coinCount.ToString();
     }
 }

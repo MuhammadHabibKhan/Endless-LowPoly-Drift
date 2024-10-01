@@ -2,6 +2,7 @@ using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 using UnityEngine.UI;
+using UnityEngine.SceneManagement;
 
 public class AudioManager : MonoBehaviour
 {
@@ -22,6 +23,31 @@ public class AudioManager : MonoBehaviour
     public Slider sfxSlider;        // Slider for SFX volume
     public Slider masterSlider;
 
+    public void GetSliders()
+    {
+        sfxSlider = null;
+        musicSlider = null;
+        masterSlider = null;
+
+        Slider[] SliderList = FindObjectsOfType<Slider>();
+
+        for (int i = 0; i < SliderList.Length; i++)
+        {
+            if (SliderList[i].name == "MusicVolume")
+            {
+                musicSlider = SliderList[i];
+            }
+            else if (SliderList[i].name == "SFXVolume")
+            {
+                sfxSlider = SliderList[i];
+            }
+            else if (SliderList[i].name == "MasterVolume")
+            {
+                masterSlider = SliderList[i];
+            }
+        }
+    }
+
     private void Awake()
     {
         // Singleton pattern implementation
@@ -29,20 +55,26 @@ public class AudioManager : MonoBehaviour
         {
             instance = this;
             DontDestroyOnLoad(gameObject);
+            SceneManager.sceneLoaded += OnSceneLoaded; // Subscribe to scene load event
         }
         else
         {
-            Destroy(instance.gameObject);
-            instance = this;
-            DontDestroyOnLoad(gameObject);
+            Destroy(gameObject);
         }
 
         // Adding Audio Clips using Resources.Load
         audioClips.Add("menu", Resources.Load<AudioClip>("main menu music"));
-        audioClips.Add("background", Resources.Load<AudioClip>("lofi-relax-travel"));
+        audioClips.Add("background", Resources.Load<AudioClip>("freaky-trap"));
+        audioClips.Add("game-over", Resources.Load<AudioClip>("game-over-new"));
+        audioClips.Add("reward", Resources.Load<AudioClip>("coin-reward"));
     }
 
     private void Start()
+    {
+        SetSlidersAndListeners();
+    }
+
+    public void SetSlidersAndListeners()
     {
         // Load saved volume settings
         savedMusicVolume = PlayerPrefs.GetFloat("MusicVolume", 1f); // defaults to 1 if not saved / 1st time
@@ -75,6 +107,11 @@ public class AudioManager : MonoBehaviour
 
     private void OnDestroy()
     {
+        if (instance == this)
+        {
+            SceneManager.sceneLoaded -= OnSceneLoaded; // Unsubscribe when destroyed
+        }
+
         // Unsubscribe from the sliders' events
         if (musicSlider != null)
         {
@@ -115,6 +152,18 @@ public class AudioManager : MonoBehaviour
         }
     }
 
+    // Pause Music
+    public void PauseMusic()
+    {
+        musicSource.Pause();
+    }
+
+    // Resume Music
+    public void ResumeMusic()
+    {
+        musicSource.UnPause();
+    }
+
     // Stop music
     public void StopMusic()
     {
@@ -150,5 +199,11 @@ public class AudioManager : MonoBehaviour
         musicSlider.value = volume;
         PlayerPrefs.SetFloat("MasterVolume", volume);
         PlayerPrefs.Save();
+    }
+
+    private void OnSceneLoaded(Scene scene, LoadSceneMode mode)
+    {
+        GetSliders(); // Reassign the sliders in the new scene
+        SetSlidersAndListeners(); // Reapply volume settings to the sliders
     }
 }

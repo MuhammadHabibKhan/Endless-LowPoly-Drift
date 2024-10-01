@@ -24,7 +24,7 @@ public class PathGenerator : MonoBehaviour
         // Initial path generation (start with a few segments)
         for (int i = 0; i < maxSegmentsOnScreen; i++)
         {
-            //SpawnSegment();
+            SpawnSegment();
         }
     }
 

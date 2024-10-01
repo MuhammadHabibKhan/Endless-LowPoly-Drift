@@ -29,11 +29,11 @@ public class PauseMenu : MonoBehaviour
     // Respond to the event when the game state changes
     private void HandleGameStateChanged(GameState newState)
     {
-        if (newState == GameState.Paused)
+        if (newState == GameState.Paused && pauseMenuCanvas != null)
         {
             pauseMenuCanvas.SetActive(true);
         }
-        else
+        else if (pauseMenuCanvas != null)
         {
             pauseMenuCanvas.SetActive(false);
         }

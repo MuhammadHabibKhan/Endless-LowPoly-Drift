@@ -13,7 +13,7 @@ public class CarController : MonoBehaviour
     private RotateWheels wheelScript;
 
     // Variables
-    private Vector3 MoveForce;
+    public Vector3 MoveForce;
 
     // Update is called once per frame
     void Update()
@@ -44,8 +44,7 @@ public class CarController : MonoBehaviour
         if (wheelScript != null)
         {
             wheelScript.Rotate(Input.GetAxis("Vertical"));
-            //float Tilt = Vector3.Distance(MoveForce, transform.forward);
-            //wheelScript.Tilt(Tilt);
+            wheelScript.TiltWheels(steerInput);
         }
     }
 }
