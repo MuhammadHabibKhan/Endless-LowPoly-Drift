@@ -14,16 +14,46 @@ public class CarController : MonoBehaviour
 
     // Variables
     public Vector3 MoveForce;
+    private float verticalInput = 0; // Simulates the vertical axis input (-1 for backward, 1 for forward)
+
+    void Start()
+    {
+        // Enable the gyroscope
+        Input.gyro.enabled = true;
+    }
+
+    // Functions to be called on button press/release
+    public void MoveForwardPressed()
+    {
+        verticalInput = 1; // Move forward
+    }
+
+    public void MoveBackwardPressed()
+    {
+        verticalInput = -1; // Move backward
+    }
+
+    public void StopMovement()
+    {
+        verticalInput = 0; // Stop moving
+    }
 
     // Update is called once per frame
     void Update()
     {
-        // Moving
-        MoveForce += transform.forward * MoveSpeed * Input.GetAxis("Vertical") * Time.deltaTime;
+        //// Moving
+        //MoveForce += transform.forward * MoveSpeed * Input.GetAxis("Vertical") * Time.deltaTime;
+        //transform.position += MoveForce * Time.deltaTime;
+
+        // Moving (using simulated vertical input from UI buttons)
+        MoveForce += transform.forward * MoveSpeed * verticalInput * Time.deltaTime;
         transform.position += MoveForce * Time.deltaTime;
 
         // Steering
-        float steerInput = Input.GetAxis("Horizontal");
+        //float steerInput = Input.GetAxis("Horizontal");
+        //transform.Rotate(Vector3.up * steerInput * MoveForce.magnitude * SteerAngle * Time.deltaTime);
+
+        float steerInput = Input.gyro.rotationRateUnbiased.y; // Gyroscope's yaw value (rotation around Y-axis)
         transform.Rotate(Vector3.up * steerInput * MoveForce.magnitude * SteerAngle * Time.deltaTime);
 
         // Drag and max speed limit

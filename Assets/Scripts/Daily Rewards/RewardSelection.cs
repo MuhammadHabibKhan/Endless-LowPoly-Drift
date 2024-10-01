@@ -87,7 +87,7 @@ public class RewardSelection : MonoBehaviour
 
         if (nextCollectionDeadline == DateTime.MinValue)
         {
-            Debug.Log("null next");
+            //Debug.Log("null next");
             nextCollectionDeadline = currentDateTime;
         }
 
