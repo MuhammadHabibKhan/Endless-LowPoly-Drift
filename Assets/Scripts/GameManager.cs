@@ -81,7 +81,7 @@ public class GameManager : MonoBehaviour
                 break;
 
             case GameState.GameOver:
-                AddCoins();
+                AddScoreCoins();
                 score = 0;
                 Time.timeScale = 0;
                 AudioManager.instance.PlaySFX("game-over");
@@ -122,11 +122,19 @@ public class GameManager : MonoBehaviour
         PlayerPrefs.SetFloat("currentScore", score);
     }
 
-    public void AddCoins()
+    public void AddScoreCoins()
     {
         coinCount = (int) (score / 10);
+        //totalCoinCount = PlayerPrefs.GetInt("TotalCoinCount", 0);
+        //totalCoinCount += coinCount;
+        //PlayerPrefs.SetInt("TotalCoinCount", totalCoinCount);
+        AddCoins(coinCount);
+    }
+
+    public void AddCoins(int count)
+    {
         totalCoinCount = PlayerPrefs.GetInt("TotalCoinCount", 0);
-        totalCoinCount += coinCount;
+        totalCoinCount += count;
         PlayerPrefs.SetInt("TotalCoinCount", totalCoinCount);
     }
 

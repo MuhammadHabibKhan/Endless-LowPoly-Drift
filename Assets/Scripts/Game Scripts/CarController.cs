@@ -9,6 +9,7 @@ public class CarController : MonoBehaviour
     public float Drag;
     public float SteerAngle;
     public float Traction;
+    public int start;
 
     private RotateWheels wheelScript;
 
@@ -28,12 +29,12 @@ public class CarController : MonoBehaviour
     // Functions to be called on button press/release
     public void MoveRightPressed()
     {
-        targetHorizontalInput = 1; // Move forward
+        targetHorizontalInput = 1; // Move Right
     }
 
     public void MoveLeftPressed()
     {
-        targetHorizontalInput = -1; // Move backward
+        targetHorizontalInput = -1; // Move Left
     }
 
     public void StopMovement()
@@ -57,7 +58,7 @@ public class CarController : MonoBehaviour
 
         // Moving (using simulated vertical input from UI buttons)
         //MoveForce += transform.forward * MoveSpeed * verticalInput * Time.deltaTime;
-        MoveForce += transform.forward * MoveSpeed * Time.deltaTime;
+        MoveForce += transform.forward * MoveSpeed * Time.deltaTime * start;
         transform.position += MoveForce * Time.deltaTime;
 
         //float steerInput = -Input.gyro.attitude.x * 1.2f; // Gyroscope's yaw value (rotation around Y-axis)
