@@ -94,7 +94,6 @@ public class GameManager : MonoBehaviour
                 break;
         }
         OnGameStateChanged?.Invoke(newState);
-        //Debug.Log(newState);
     }
 
     public void LoadLevel(int levelNo)
@@ -126,9 +125,6 @@ public class GameManager : MonoBehaviour
     {
         coinCount = (int) (score / 10);
         Debug.Log("count: " + coinCount + " score: " + score);
-        //totalCoinCount = PlayerPrefs.GetInt("TotalCoinCount", 0);
-        //totalCoinCount += coinCount;
-        //PlayerPrefs.SetInt("TotalCoinCount", totalCoinCount);
         AddCoins(coinCount);
     }
 
