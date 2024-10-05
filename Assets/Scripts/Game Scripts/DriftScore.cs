@@ -10,7 +10,7 @@ public class DriftScore : MonoBehaviour
     private Rigidbody rb;
 
     float driftResetTimer = 0f;  
-    float driftResetThreshold = 1.5f;
+    float driftResetThreshold = 2f;
     float timeMultiplier = 1f;
 
     void Start()
@@ -37,7 +37,7 @@ public class DriftScore : MonoBehaviour
 
         float distanceVector = Vector3.Distance(forceNormalized, forwardVector);
 
-        if (rb.velocity.magnitude > 0.0001f)
+        if (rb.velocity.magnitude > 0.000001f)
         {
             if (distanceVector <= 0.05f || distanceVector == 2)
             {

@@ -38,7 +38,7 @@ RenderSettings:
   m_ReflectionIntensity: 1
   m_CustomReflection: {fileID: 0}
   m_Sun: {fileID: 705507994}
-  m_IndirectSpecularColor: {r: 0.17827001, g: 0.13823861, b: 0.21568994, a: 1}
+  m_IndirectSpecularColor: {r: 0.11811395, g: 0.09158968, b: 0.14290912, a: 1}
   m_UseRadianceAmbientProbe: 0
 --- !u!157 &3
 LightmapSettings:
@@ -299,7 +299,7 @@ GameObject:
   - component: {fileID: 73699012}
   - component: {fileID: 73699011}
   m_Layer: 5
-  m_Name: BrakeButton
+  m_Name: LeftButton
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
@@ -320,10 +320,10 @@ RectTransform:
   m_Father: {fileID: 1667747482}
   m_RootOrder: 7
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
-  m_AnchorMin: {x: 0, y: 0}
-  m_AnchorMax: {x: 0, y: 0}
-  m_AnchoredPosition: {x: 63, y: 83.3999}
-  m_SizeDelta: {x: 80.308105, y: 144.66}
+  m_AnchorMin: {x: 0.037, y: 0.06959269}
+  m_AnchorMax: {x: 0.18985239, y: 0.35629556}
+  m_AnchoredPosition: {x: -0.027832031, y: 0.98553467}
+  m_SizeDelta: {x: 1.6520004, y: 0.40599823}
   m_Pivot: {x: 0.5, y: 0.5}
 --- !u!114 &73699011
 MonoBehaviour:
@@ -344,7 +344,7 @@ MonoBehaviour:
         m_Calls:
         - m_Target: {fileID: 505986874}
           m_TargetAssemblyTypeName: CarController, Assembly-CSharp
-          m_MethodName: MoveBackwardPressed
+          m_MethodName: MoveLeftPressed
           m_Mode: 1
           m_Arguments:
             m_ObjectArgument: {fileID: 0}
@@ -434,7 +434,7 @@ MonoBehaviour:
   m_OnCullStateChanged:
     m_PersistentCalls:
       m_Calls: []
-  m_Sprite: {fileID: 21300000, guid: 68ef7ac67cf27c44fae0287b0d97b2f0, type: 3}
+  m_Sprite: {fileID: 21300000, guid: af669c6618eb3c1479ea858adeb64f70, type: 3}
   m_Type: 0
   m_PreserveAspect: 0
   m_FillCenter: 1
@@ -806,8 +806,8 @@ MonoBehaviour:
   m_faceColor:
     serializedVersion: 2
     rgba: 4294967295
-  m_fontSize: 20
-  m_fontSizeBase: 20
+  m_fontSize: 35
+  m_fontSizeBase: 35
   m_fontWeight: 400
   m_enableAutoSizing: 0
   m_fontSizeMin: 18
@@ -871,10 +871,10 @@ RectTransform:
   m_Father: {fileID: 1667747482}
   m_RootOrder: 6
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
-  m_AnchorMin: {x: 0.043744057, y: 0.9116115}
-  m_AnchorMax: {x: 0.043744057, y: 0.9116115}
-  m_AnchoredPosition: {x: 92.400024, y: -15.599976}
-  m_SizeDelta: {x: 200, y: 50}
+  m_AnchorMin: {x: 0.054477952, y: 0.82400006}
+  m_AnchorMax: {x: 0.15147796, y: 0.87326956}
+  m_AnchoredPosition: {x: 0, y: 0}
+  m_SizeDelta: {x: 0, y: 1}
   m_Pivot: {x: 0.5, y: 0.5}
 --- !u!1 &217707848 stripped
 GameObject:
@@ -1285,10 +1285,10 @@ RectTransform:
   m_Father: {fileID: 1667747482}
   m_RootOrder: 2
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
-  m_AnchorMin: {x: 0.043744057, y: 0.96900004}
-  m_AnchorMax: {x: 0.043744057, y: 0.96900004}
-  m_AnchoredPosition: {x: 93.1001, y: -17.099854}
-  m_SizeDelta: {x: 200, y: 50}
+  m_AnchorMin: {x: 0.054477952, y: 0.915}
+  m_AnchorMax: {x: 0.15, y: 0.96300006}
+  m_AnchoredPosition: {x: 0.5, y: 0.5}
+  m_SizeDelta: {x: 1, y: 2}
   m_Pivot: {x: 0.5, y: 0.5}
 --- !u!114 &345112846
 MonoBehaviour:
@@ -1337,8 +1337,8 @@ MonoBehaviour:
   m_faceColor:
     serializedVersion: 2
     rgba: 4294967295
-  m_fontSize: 20
-  m_fontSizeBase: 20
+  m_fontSize: 35
+  m_fontSizeBase: 35
   m_fontWeight: 400
   m_enableAutoSizing: 0
   m_fontSizeMin: 18
@@ -1887,12 +1887,13 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: dafb32e7934841e4eb7c2f64a7b0d895, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  MoveSpeed: 50
-  MaxSpeed: 17
+  MoveSpeed: 12.5
+  MaxSpeed: 19
   Drag: 0.995
   SteerAngle: 20
-  Traction: 0.6
+  Traction: 0.8
   MoveForce: {x: 0, y: 0, z: 0}
+  turnSmoothSpeed: 2
 --- !u!4 &505986875 stripped
 Transform:
   m_CorrespondingSourceObject: {fileID: 4672041699375344, guid: dea8dd1cda91a7c45bf518a9b4250511, type: 3}
@@ -1971,10 +1972,10 @@ RectTransform:
   m_Father: {fileID: 1667747482}
   m_RootOrder: 3
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
-  m_AnchorMin: {x: 0, y: 1}
-  m_AnchorMax: {x: 0, y: 1}
-  m_AnchoredPosition: {x: 35, y: -35}
-  m_SizeDelta: {x: 33.72171, y: 40.35971}
+  m_AnchorMin: {x: 0.020000001, y: 0.9116115}
+  m_AnchorMax: {x: 0.04652205, y: 0.97700006}
+  m_AnchoredPosition: {x: -0.33483887, y: -0.13101196}
+  m_SizeDelta: {x: -0.53779984, y: 0.061000824}
   m_Pivot: {x: 0.5, y: 0.5}
 --- !u!114 &579974100
 MonoBehaviour:
@@ -3092,10 +3093,10 @@ RectTransform:
   m_Father: {fileID: 1667747482}
   m_RootOrder: 0
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
-  m_AnchorMin: {x: 1, y: 1}
-  m_AnchorMax: {x: 1, y: 1}
-  m_AnchoredPosition: {x: -62, y: -22}
-  m_SizeDelta: {x: 160, y: 30}
+  m_AnchorMin: {x: 0.8845221, y: 0.9250001}
+  m_AnchorMax: {x: 1, y: 0.97}
+  m_AnchoredPosition: {x: 0.099975586, y: 0.2000122}
+  m_SizeDelta: {x: -81, y: -15}
   m_Pivot: {x: 0.5, y: 0.5}
 --- !u!114 &1134072763
 MonoBehaviour:
@@ -3255,7 +3256,7 @@ GameObject:
   - component: {fileID: 1210194839}
   - component: {fileID: 1210194838}
   m_Layer: 5
-  m_Name: AccelerateButton
+  m_Name: RightButton
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
@@ -3276,10 +3277,10 @@ RectTransform:
   m_Father: {fileID: 1667747482}
   m_RootOrder: 5
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
-  m_AnchorMin: {x: 1, y: 0}
-  m_AnchorMax: {x: 1, y: 0}
-  m_AnchoredPosition: {x: -60.399902, y: 76.69995}
-  m_SizeDelta: {x: 82.5553, y: 130.4351}
+  m_AnchorMin: {x: 0.83400005, y: 0.06959269}
+  m_AnchorMax: {x: 0.97200006, y: 0.35629556}
+  m_AnchoredPosition: {x: 8.040283, y: -10}
+  m_SizeDelta: {x: 16.171898, y: 0.33200073}
   m_Pivot: {x: 0.5, y: 0.5}
 --- !u!114 &1210194838
 MonoBehaviour:
@@ -3316,7 +3317,7 @@ MonoBehaviour:
         m_Calls:
         - m_Target: {fileID: 505986874}
           m_TargetAssemblyTypeName: CarController, Assembly-CSharp
-          m_MethodName: MoveForwardPressed
+          m_MethodName: MoveRightPressed
           m_Mode: 1
           m_Arguments:
             m_ObjectArgument: {fileID: 0}
@@ -3390,7 +3391,7 @@ MonoBehaviour:
   m_OnCullStateChanged:
     m_PersistentCalls:
       m_Calls: []
-  m_Sprite: {fileID: 21300000, guid: d97b4cdf80f2f024089a706fd07454ef, type: 3}
+  m_Sprite: {fileID: 21300000, guid: 2eff9b66122d59341b30e612e4d6cb69, type: 3}
   m_Type: 0
   m_PreserveAspect: 0
   m_FillCenter: 1
@@ -14329,10 +14330,10 @@ RectTransform:
   m_Father: {fileID: 1667747482}
   m_RootOrder: 4
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
-  m_AnchorMin: {x: 0.016204532, y: 0.9116115}
-  m_AnchorMax: {x: 0.016204532, y: 0.9116115}
-  m_AnchoredPosition: {x: 1, y: -0}
-  m_SizeDelta: {x: 38.99341, y: 38.704895}
+  m_AnchorMin: {x: 0.020000001, y: 0.83400005}
+  m_AnchorMax: {x: 0.043477952, y: 0.88436854}
+  m_AnchoredPosition: {x: -0.017578125, y: 0.2000122}
+  m_SizeDelta: {x: -0.03520012, y: 1.490799}
   m_Pivot: {x: 0.5, y: 0.5}
 --- !u!114 &2131768700
 MonoBehaviour:
