@@ -38,7 +38,7 @@ RenderSettings:
   m_ReflectionIntensity: 1
   m_CustomReflection: {fileID: 0}
   m_Sun: {fileID: 705507994}
-  m_IndirectSpecularColor: {r: 0.28388298, g: 0.22013783, b: 0.34347996, a: 1}
+  m_IndirectSpecularColor: {r: 0.055551495, g: 0.04307526, b: 0.067212984, a: 1}
   m_UseRadianceAmbientProbe: 0
 --- !u!157 &3
 LightmapSettings:
@@ -285,6 +285,8 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   gameOverCanvas: {fileID: 0}
   AdsManager: {fileID: 2020228699}
+  scoreTextGameOver: {fileID: 298616523}
+  coinCountGameOver: {fileID: 703794254}
 --- !u!1 &73699009
 GameObject:
   m_ObjectHideFlags: 0
@@ -1019,7 +1021,7 @@ RectTransform:
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
   m_AnchorMin: {x: 0.45200002, y: 0.6556667}
   m_AnchorMax: {x: 0.5517501, y: 0.70111114}
-  m_AnchoredPosition: {x: -3.5, y: 209}
+  m_AnchoredPosition: {x: -3.5, y: -2}
   m_SizeDelta: {x: 9, y: 1}
   m_Pivot: {x: 0.5, y: 0.5}
 --- !u!114 &253658779
@@ -2043,6 +2045,7 @@ MonoBehaviour:
   Drag: 0.995
   SteerAngle: 20
   Traction: 0.8
+  start: 0
   MoveForce: {x: 0, y: 0, z: 0}
   turnSmoothSpeed: 2
 --- !u!4 &505986875 stripped
@@ -9201,9 +9204,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   scoreTextHUD: {fileID: 345112846}
-  scoreTextGameOver: {fileID: 298616523}
   multiplierText: {fileID: 198835250}
-  coinCountGameOver: {fileID: 703794254}
 --- !u!1 &1770903544
 GameObject:
   m_ObjectHideFlags: 0

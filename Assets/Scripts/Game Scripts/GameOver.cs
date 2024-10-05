@@ -2,12 +2,16 @@ using System.Collections;
 using System.Collections.Generic;
 using TMPro;
 using UnityEngine;
+using UnityEngine.SocialPlatforms.Impl;
 using static GameManager;
 
 public class GameOver : MonoBehaviour
 {
     public GameObject gameOverCanvas;
     public GameObject AdsManager;
+
+    [SerializeField] private TextMeshProUGUI scoreTextGameOver;
+    [SerializeField] private TextMeshProUGUI coinCountGameOver;
 
     private void Awake()
     {
@@ -38,6 +42,11 @@ public class GameOver : MonoBehaviour
         if (newState == GameState.GameOver && gameOverCanvas != null)
         {
             gameOverCanvas.SetActive(true);
+            
+            int score = (int)PlayerPrefs.GetFloat("currentScore", 0);
+            scoreTextGameOver.text = score.ToString();
+            coinCountGameOver.text = GameManager.instance.coinCount.ToString();
+            
             PlayerPrefs.Save();
             AdsManager.GetComponent<DisplayInterstitial>().ShowAD();
         }

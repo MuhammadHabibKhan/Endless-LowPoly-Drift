@@ -81,9 +81,9 @@ public class GameManager : MonoBehaviour
                 break;
 
             case GameState.GameOver:
+                Time.timeScale = 0;
                 AddScoreCoins();
                 score = 0;
-                Time.timeScale = 0;
                 AudioManager.instance.PlaySFX("game-over");
                 break;
 
@@ -125,6 +125,7 @@ public class GameManager : MonoBehaviour
     public void AddScoreCoins()
     {
         coinCount = (int) (score / 10);
+        Debug.Log("count: " + coinCount + " score: " + score);
         //totalCoinCount = PlayerPrefs.GetInt("TotalCoinCount", 0);
         //totalCoinCount += coinCount;
         //PlayerPrefs.SetInt("TotalCoinCount", totalCoinCount);
