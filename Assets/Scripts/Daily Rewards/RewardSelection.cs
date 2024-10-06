@@ -87,7 +87,7 @@ public class RewardSelection : MonoBehaviour
 
         if (nextCollectionDeadline == DateTime.MinValue)
         {
-            Debug.Log("null next");
+            //Debug.Log("null next");
             nextCollectionDeadline = currentDateTime;
         }
 
@@ -158,6 +158,7 @@ public class RewardSelection : MonoBehaviour
                     {
                         lastCollectionDateTime = currentDateTime;
                         currentReward = RewardAmount[currentDay];
+                        GameManager.instance.AddCoins(currentReward);
                         collectButton.interactable = false;
                         buttonState = false;
                         PlayerPrefs.SetInt("ButtonState", 0);
@@ -172,6 +173,7 @@ public class RewardSelection : MonoBehaviour
                 else
                 {
                     currentReward = RewardAmount[0]; // if Day 0, next collection deadline does not exist hence directly assign 0th element
+                    GameManager.instance.AddCoins(currentReward);
                     currentDay = (currentDay + 1) % 7;
                     PlayerPrefs.SetInt("CurrentDay", currentDay);
                     collectButton.interactable = false;

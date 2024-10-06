@@ -9,22 +9,62 @@ public class CarController : MonoBehaviour
     public float Drag;
     public float SteerAngle;
     public float Traction;
+    public int start;
 
     private RotateWheels wheelScript;
 
     // Variables
     public Vector3 MoveForce;
 
+    private float horizontalInput = 0f; // Simulates the horizontal axis input (-1 for left, 1 for right)
+    private float targetHorizontalInput = 0f; // Target value for smooth turning
+    public float turnSmoothSpeed = 2f; // Smoothing speed for turning
+
+    void Start()
+    {
+        // Enable the gyroscope
+        Input.gyro.enabled = true;
+    }
+
+    // Functions to be called on button press/release
+    public void MoveRightPressed()
+    {
+        targetHorizontalInput = 1; // Move Right
+    }
+
+    public void MoveLeftPressed()
+    {
+        targetHorizontalInput = -1; // Move Left
+    }
+
+    public void StopMovement()
+    {
+        targetHorizontalInput = 0; // Stop moving
+    }
+
     // Update is called once per frame
     void Update()
     {
+        // Smoothly interpolate between current and target horizontal input
+        horizontalInput = Mathf.Lerp(horizontalInput, targetHorizontalInput, turnSmoothSpeed * Time.deltaTime);
+
         // Moving
-        MoveForce += transform.forward * MoveSpeed * Input.GetAxis("Vertical") * Time.deltaTime;
-        transform.position += MoveForce * Time.deltaTime;
+        //MoveForce += transform.forward * MoveSpeed * Input.GetAxis("Vertical") * Time.deltaTime;
+        //transform.position += MoveForce * Time.deltaTime;
 
         // Steering
-        float steerInput = Input.GetAxis("Horizontal");
-        transform.Rotate(Vector3.up * steerInput * MoveForce.magnitude * SteerAngle * Time.deltaTime);
+        //float steerInput = Input.GetAxis("Horizontal");
+        //transform.Rotate(Vector3.up * steerInput * MoveForce.magnitude * SteerAngle * Time.deltaTime);
+
+        // Moving (using simulated vertical input from UI buttons)
+        //MoveForce += transform.forward * MoveSpeed * verticalInput * Time.deltaTime;
+        MoveForce += transform.forward * MoveSpeed * Time.deltaTime * start;
+        transform.position += MoveForce * Time.deltaTime;
+
+        //float steerInput = -Input.gyro.attitude.x * 1.2f; // Gyroscope's yaw value (rotation around Y-axis)
+        //transform.Rotate(Vector3.up * steerInput * MoveForce.magnitude * SteerAngle * Time.deltaTime);
+
+        transform.Rotate(Vector3.up * horizontalInput * MoveForce.magnitude * SteerAngle * Time.deltaTime);
 
         // Drag and max speed limit
         MoveForce *= Drag;
@@ -44,7 +84,8 @@ public class CarController : MonoBehaviour
         if (wheelScript != null)
         {
             wheelScript.Rotate(Input.GetAxis("Vertical"));
-            wheelScript.TiltWheels(steerInput);
+            //wheelScript.TiltWheels(steerInput);
+            wheelScript.TiltWheels(horizontalInput);
         }
     }
 }

@@ -4,6 +4,7 @@ using TMPro;
 using Unity.VisualScripting;
 using UnityEngine;
 using UnityEngine.SceneManagement;
+using static GameManager;
 
 public class MainMenuManager : MonoBehaviour
 {
@@ -11,6 +12,25 @@ public class MainMenuManager : MonoBehaviour
     [SerializeField] private TextMeshProUGUI coinCountText;
     private int highScoreInt;
     private int coinCount;
+
+    private void OnEnable()
+    {
+        if (GameManager.instance != null) GameManager.instance.OnGameStateChanged += HandleGameStateChanged;
+    }
+
+    private void OnDestroy()
+    {
+        GameManager.instance.OnGameStateChanged -= HandleGameStateChanged;
+    }
+
+    private void HandleGameStateChanged(GameState newState)
+    {
+        if (newState == GameState.MainMenu || newState == GameState.ReturnMainMenu)
+        {
+            DisplayCoinCount();
+            DisplayHighScore();
+        }
+    }
 
     public void PlayGame()
     {
@@ -20,6 +40,7 @@ public class MainMenuManager : MonoBehaviour
     private void Start()
     {
         AudioManager.instance.PlayMusic("menu");
+        OnEnable();
         DisplayHighScore();
         DisplayCoinCount();
     }

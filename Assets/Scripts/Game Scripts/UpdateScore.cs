@@ -6,9 +6,7 @@ using TMPro;
 public class UpdateScore : MonoBehaviour
 {
     [SerializeField] private TextMeshProUGUI scoreTextHUD;
-    [SerializeField] private TextMeshProUGUI scoreTextGameOver;
     [SerializeField] private TextMeshProUGUI multiplierText;
-    [SerializeField] private TextMeshProUGUI coinCountGameOver;
 
     private int score;
     private int multiplier;
@@ -19,7 +17,5 @@ public class UpdateScore : MonoBehaviour
         multiplier = (int) GameManager.instance.multiplier;
         multiplierText.text = multiplier.ToString();
         scoreTextHUD.text = score.ToString();
-        scoreTextGameOver.text = score.ToString();
-        coinCountGameOver.text = GameManager.instance.coinCount.ToString();
     }
 }

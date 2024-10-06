@@ -14,6 +14,7 @@ public class SkyBoxTransition : MonoBehaviour
         // Set the skybox material in RenderSettings
         RenderSettings.skybox = skyboxMaterial;
         RenderSettings.skybox.SetFloat("_Exposure", maxExposure); // Start fully bright (day)
+        InvokeRepeating("UpdateEnv", 0.5f, 0.5f);
     }
 
     void Update()
@@ -27,13 +28,16 @@ public class SkyBoxTransition : MonoBehaviour
         // Set the exposure value to simulate the sky dimming and brightening
         skyboxMaterial.SetFloat("_Exposure", exposureValue);
 
-        // Update global lighting to reflect the new skybox exposure
-        DynamicGI.UpdateEnvironment();
-
         // Reset cycle time to prevent overflow
         if (cycleTime >= 1f)
         {
             cycleTime = 0f;
         }
+    }
+
+    void UpdateEnv()
+    {
+        // Update global lighting to reflect the new skybox exposure
+        DynamicGI.UpdateEnvironment();
     }
 }

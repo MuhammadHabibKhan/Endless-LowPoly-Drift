@@ -46,6 +46,11 @@ public class GameManager : MonoBehaviour
         }
     }
 
+    private void Start()
+    {
+        Screen.orientation = ScreenOrientation.LandscapeLeft;
+    }
+
     public void SetGameState(GameState newState)
     {
         currentState = newState;
@@ -76,9 +81,9 @@ public class GameManager : MonoBehaviour
                 break;
 
             case GameState.GameOver:
-                AddCoins();
-                score = 0;
                 Time.timeScale = 0;
+                AddScoreCoins();
+                score = 0;
                 AudioManager.instance.PlaySFX("game-over");
                 break;
 
@@ -89,7 +94,6 @@ public class GameManager : MonoBehaviour
                 break;
         }
         OnGameStateChanged?.Invoke(newState);
-        //Debug.Log(newState);
     }
 
     public void LoadLevel(int levelNo)
@@ -117,11 +121,17 @@ public class GameManager : MonoBehaviour
         PlayerPrefs.SetFloat("currentScore", score);
     }
 
-    public void AddCoins()
+    public void AddScoreCoins()
     {
         coinCount = (int) (score / 10);
+        Debug.Log("count: " + coinCount + " score: " + score);
+        AddCoins(coinCount);
+    }
+
+    public void AddCoins(int count)
+    {
         totalCoinCount = PlayerPrefs.GetInt("TotalCoinCount", 0);
-        totalCoinCount += coinCount;
+        totalCoinCount += count;
         PlayerPrefs.SetInt("TotalCoinCount", totalCoinCount);
     }
 

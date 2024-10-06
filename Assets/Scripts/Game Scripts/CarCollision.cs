@@ -6,10 +6,12 @@ public class CarCollision : MonoBehaviour
 {
     private Rigidbody carRigidbody;
     private bool overFlag = false;
+    private bool collided = false;
 
     private void Start()
     {
         carRigidbody = GetComponent<Rigidbody>();
+        collided = false;
     }
 
     void OnCollisionEnter(Collision collision)
@@ -17,10 +19,11 @@ public class CarCollision : MonoBehaviour
         string collidedObjectName = collision.gameObject.name;
 
         // use CompareTag for better performance??
-        if (collidedObjectName != "Road")
+        if (collidedObjectName != "Road" && collided == false)
         {
-            //Debug.Log(collidedObjectName);
+            Debug.Log(collidedObjectName);
             GameManager.instance.SetGameState(GameManager.GameState.GameOver);
+            collided = true;
         }
     }
 
